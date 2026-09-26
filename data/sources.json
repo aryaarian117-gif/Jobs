@@ -1,0 +1,13 @@
+{
+  "updatedAt": "2026-09-26",
+  "items": [
+    {"name": "Indeed", "status": "on", "note": "Searched every weekday; full postings readable, so jobs score without a cap."},
+    {"name": "ZipRecruiter", "status": "on", "note": "Searched every weekday with a $95k salary floor. Postings aren't readable here, so requirements are looked up elsewhere."},
+    {"name": "Web search (BioSpace, LinkedIn, Built In)", "status": "on", "note": "Targeted searches for recent postings. Unreadable ones land in Leads."},
+    {"name": "Gmail: application status", "status": "on", "note": "Reads recruiting emails for tracked applications and moves stages (interview, rejected). Read-only."},
+    {"name": "Gmail: job alerts", "status": "waiting", "note": "Connected, but no alert emails yet.", "todo": "Create LinkedIn and BioSpace job alerts (Houston and Remote), emailed daily to aryaarian117@gmail.com."},
+    {"name": "Rice Business 12twenty", "status": "waiting", "note": "No direct connection; 12twenty sits behind your Rice login. Its job emails are read from Gmail.", "todo": "In 12twenty, save job searches with email notifications on, and forward 12twenty emails from your rice.edu inbox to aryaarian117@gmail.com."},
+    {"name": "Company career sites (watchlist)", "status": "waiting", "note": "47 companies ready. Blocked by the environment's network policy.", "todo": "Environment settings > Network access: allow boards-api.greenhouse.io, api.lever.co, api.smartrecruiters.com, apply.workable.com, *.myworkdayjobs.com, jobs.biospace.com, builtin.com."},
+    {"name": "LinkedIn and Glassdoor (direct)", "status": "off", "note": "Require login and don't allow automated access. Covered through their email alerts instead."}
+  ]
+}

@@ -162,6 +162,11 @@ textarea.notes{min-height:90px}
 form.add{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px;max-width:760px}
 form.add .full{grid-column:1/-1}
 .watch{margin-top:28px;max-width:760px}
+.srcs{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.srcs li{display:grid;grid-template-columns:92px minmax(0,1fr);gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.srcs b{font-weight:600}
+.srcs .small{display:block;margin-top:2px}
+.st-on{background:var(--good-soft);color:var(--good)} .st-waiting{background:var(--warn-soft);color:var(--warn)} .st-off{background:var(--sunken);color:var(--muted)}
 .watch h2{font-family:var(--cond);font-size:20px}
 .watch p{margin:4px 0 12px;color:var(--muted);font-size:14px;max-width:72ch}
 .wgroup{margin-top:14px}
@@ -252,7 +257,7 @@ form.add .full{grid-column:1/-1}
     return c;
   }
 
-  const S = { jobs: [], profile: null, watch: null, tab: "matches", track: "All", open: new Set(), loaded: false };
+  const S = { jobs: [], profile: null, watch: null, sources: null, tab: "matches", track: "All", open: new Set(), loaded: false };
   let db = null, sample = null, pendingRender = false;
 
   try { const t = localStorage.getItem("jd.tab"); if (["matches","leads","apply","passed","add"].includes(t)) S.tab = t; } catch(e) {}
@@ -445,6 +450,14 @@ form.add .full{grid-column:1/-1}
   }
 
   const WCATS = ["Houston area","EV / exosome","Bioprocess & tools","CDMO / cell & gene therapy","Consulting","Other"];
+  const SRC_LABEL = {on:"On", waiting:"Needs setup", off:"Off"};
+  function renderSources(){
+    const items = S.sources && Array.isArray(S.sources.items) ? S.sources.items : [];
+    if (!items.length) return "";
+    return `<section class="watch"><h2>Sources</h2>
+      <p>Where the weekday 6:56 AM search looks for jobs and application updates.${S.sources.updatedAt ? " Updated " + esc(fmtDate(S.sources.updatedAt)) + "." : ""}</p>
+      <ul class="srcs">${items.map(x => `<li><span class="chip st-${esc(x.status)}" style="justify-self:start">${esc(SRC_LABEL[x.status] || x.status)}</span><div><b>${esc(x.name)}</b><span class="small">${esc(x.note || "")}</span>${x.todo ? `<span class="small"><b>To do:</b> ${esc(x.todo)}</span>` : ""}</div></li>`).join("")}</ul></section>`;
+  }
   function renderWatch(){
     const list = S.watch && Array.isArray(S.watch.companies) ? S.watch.companies : [];
     const groups = WCATS.map(c => {
@@ -481,7 +494,7 @@ form.add .full{grid-column:1/-1}
       <div class="field full"><label for="f-notes">Notes</label><input id="f-notes" placeholder="Where you found it, referral, etc."></div>
       <div class="field full"><label for="f-status">Add to</label><select id="f-status"><option value="saved">Matches (saved)</option><option value="drafting">Apply: drafting</option><option value="applied">Apply: already applied today</option></select></div>
       <div class="full row"><button class="btn primary" type="submit">Add job</button><span class="small">Claude scores fit the next time you ask it to review new jobs.</span></div>
-    </form>${renderWatch()}`;
+    </form>${renderSources()}${renderWatch()}`;
   }
 
   /* ---------- events ---------- */
@@ -584,6 +597,7 @@ form.add .full{grid-column:1/-1}
       S.loaded = true; schedule();
     }, () => { S.loaded = true; notice("Live updates stopped. Reload the page to reconnect."); render(); });
     db.doc("profile/main").onSnapshot(s => { S.profile = s.exists ? s.data() : null; }, () => {});
+    db.doc("sources/status").onSnapshot(s => { S.sources = s.exists ? s.data() : null; if (S.tab === "add") schedule(); }, () => {});
     db.doc("sources/watchlist").onSnapshot(s => { S.watch = s.exists ? s.data() : null; if (S.tab === "add") schedule(); }, () => {});
   })();
   (async () => {

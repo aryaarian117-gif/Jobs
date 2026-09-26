@@ -4,11 +4,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap">
 <style>
 :root{
-  --bg:#F2F4F6; --surface:#FFFFFF; --sunken:#E9EDF1; --ink:#15202B; --muted:#5A6774; --line:#D8DFE6;
-  --accent:#0E6B74; --accent-soft:#DDEFF0; --on-accent:#FFFFFF;
-  --biz:#4B4FAE; --biz-soft:#E6E7F7; --tech:#51606E; --tech-soft:#E6EAEE;
-  --good:#1E7F4B; --good-soft:#DDF1E5; --warn:#9A6212; --warn-soft:#F7EBD6; --bad:#B03A2E; --bad-soft:#F7E0DD;
-  --shadow:0 1px 2px rgba(21,32,43,.06),0 2px 8px rgba(21,32,43,.05);
+  --bg:#F4F2F7; --surface:#FFFFFF; --sunken:#EAE6F0; --ink:#1D1A2B; --muted:#625C73; --line:#DDD8E6;
+  --accent:#5B3FA8; --accent-soft:#ECE6F8; --on-accent:#FFFFFF; --meter:#D9962B;
+  --biz:#5B3FA8; --biz-soft:#ECE6F8; --int:#9A5A12; --int-soft:#F8ECD9; --tech:#3F5B73; --tech-soft:#E2EAF1;
+  --good:#1F7A4A; --good-soft:#DDF0E4; --info:#2B63A6; --info-soft:#E0EAF7; --warn:#96610F; --warn-soft:#F6EAD3; --bad:#A83A3A; --bad-soft:#F6E0E0;
+  --shadow:0 1px 2px rgba(29,26,43,.06),0 2px 8px rgba(29,26,43,.05);
   --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --cond:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -16,20 +16,20 @@
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --bg:#0E151B; --surface:#16202A; --sunken:#111A22; --ink:#E5ECF1; --muted:#93A2AF; --line:#27343F;
-    --accent:#57B8C1; --accent-soft:#16373B; --on-accent:#0B1F22;
-    --biz:#A5A8F0; --biz-soft:#262A4D; --tech:#A9B6C2; --tech-soft:#24303A;
-    --good:#6BCB93; --good-soft:#173524; --warn:#E3AE5C; --warn-soft:#3A2A12; --bad:#EE8A7F; --bad-soft:#3F1C18;
-    --shadow:0 1px 2px rgba(0,0,0,.4);
+    --bg:#121019; --surface:#1B1824; --sunken:#15121D; --ink:#ECE8F4; --muted:#A39CB5; --line:#2E2A3B;
+    --accent:#B39DF2; --accent-soft:#2C2445; --on-accent:#1A1330; --meter:#E8B25A;
+    --biz:#B39DF2; --biz-soft:#2C2445; --int:#E8B25A; --int-soft:#3A2B14; --tech:#9EB8CE; --tech-soft:#22303C;
+    --good:#72CC98; --good-soft:#17331F; --info:#8DB5E8; --info-soft:#1C2B40; --warn:#E3B062; --warn-soft:#3A2A12; --bad:#EE9090; --bad-soft:#3E1C1F;
+    --shadow:0 1px 2px rgba(0,0,0,.45);
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#0E151B; --surface:#16202A; --sunken:#111A22; --ink:#E5ECF1; --muted:#93A2AF; --line:#27343F;
-  --accent:#57B8C1; --accent-soft:#16373B; --on-accent:#0B1F22;
-  --biz:#A5A8F0; --biz-soft:#262A4D; --tech:#A9B6C2; --tech-soft:#24303A;
-  --good:#6BCB93; --good-soft:#173524; --warn:#E3AE5C; --warn-soft:#3A2A12; --bad:#EE8A7F; --bad-soft:#3F1C18;
-  --shadow:0 1px 2px rgba(0,0,0,.4);
+  --bg:#121019; --surface:#1B1824; --sunken:#15121D; --ink:#ECE8F4; --muted:#A39CB5; --line:#2E2A3B;
+  --accent:#B39DF2; --accent-soft:#2C2445; --on-accent:#1A1330; --meter:#E8B25A;
+  --biz:#B39DF2; --biz-soft:#2C2445; --int:#E8B25A; --int-soft:#3A2B14; --tech:#9EB8CE; --tech-soft:#22303C;
+  --good:#72CC98; --good-soft:#17331F; --info:#8DB5E8; --info-soft:#1C2B40; --warn:#E3B062; --warn-soft:#3A2A12; --bad:#EE9090; --bad-soft:#3E1C1F;
+  --shadow:0 1px 2px rgba(0,0,0,.45);
 }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);margin:0}
@@ -71,10 +71,10 @@ button,input,select,textarea{font:inherit;color:inherit}
 /* chips */
 .chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;padding:2px 8px;border-radius:999px;white-space:nowrap}
 .t-Business{background:var(--biz-soft);color:var(--biz)}
-.t-Intersection{background:var(--accent-soft);color:var(--accent)}
+.t-Intersection{background:var(--int-soft);color:var(--int)}
 .t-Technical{background:var(--tech-soft);color:var(--tech)}
 .s-meets{background:var(--good-soft);color:var(--good)}
-.s-spans{background:var(--accent-soft);color:var(--accent)}
+.s-spans{background:var(--info-soft);color:var(--info)}
 .s-near{background:var(--warn-soft);color:var(--warn)}
 .s-none{background:var(--sunken);color:var(--muted)}
 .s-below{background:var(--bad-soft);color:var(--bad)}
@@ -86,7 +86,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .fit b{font-family:var(--mono);font-size:24px;font-weight:600;line-height:1}
 .fit small{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .bar{width:48px;height:4px;border-radius:2px;background:var(--sunken);overflow:hidden}
-.bar i{display:block;height:100%;background:var(--accent)}
+.bar i{display:block;height:100%;background:var(--meter)}
 .card h3{font-size:17px;line-height:1.3}
 .card h3 a{color:var(--ink);text-decoration:none}
 .card h3 a:hover{text-decoration:underline}
@@ -114,6 +114,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 .app+.app{margin-top:10px}
 .app-head{display:grid;grid-template-columns:minmax(0,1.6fr) 150px repeat(3,minmax(0,1fr)) 32px;gap:12px;align-items:end;padding:14px 16px}
 .app-head h3{font-size:16px;line-height:1.3}
+.moves{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:8px}
+.link{border:0;background:none;padding:0;font-size:12px;color:var(--muted);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.link:hover{color:var(--ink)}
 .app-head .meta{font-size:13px}
 .field{display:flex;flex-direction:column;gap:3px;min-width:0}
 .field label{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
@@ -173,6 +176,7 @@ form.add .full{grid-column:1/-1}
   <nav class="tabs" role="tablist">
     <button class="tab" role="tab" id="tab-matches" data-tab="matches">Matches<span class="n" id="n-matches"></span></button>
     <button class="tab" role="tab" id="tab-apply" data-tab="apply">Apply<span class="n" id="n-apply"></span></button>
+    <button class="tab" role="tab" id="tab-passed" data-tab="passed">Passed<span class="n" id="n-passed"></span></button>
     <button class="tab" role="tab" id="tab-add" data-tab="add">Add a job</button>
   </nav>
   <div id="notice" class="notice" hidden></div>
@@ -190,16 +194,16 @@ form.add .full{grid-column:1/-1}
     {k:"closed", label:"Closed"}
   ];
   const APPLY_STATUSES = ["drafting","applied","interview","offer","rejected","withdrawn"];
-  const STATUS_LABEL = {new:"New",saved:"Saved",passed:"Passed",drafting:"Drafting",applied:"Applied",interview:"Interview",offer:"Offer",rejected:"Rejected",withdrawn:"Withdrawn"};
+  const STATUS_LABEL = {new:"Matches",saved:"Saved",passed:"Passed",drafting:"Drafting",applied:"Applied",interview:"Interview",offer:"Offer",rejected:"Rejected",withdrawn:"Withdrawn"};
   const TRACKS = ["All","Business","Intersection","Technical"];
   const FLOOR = 100000, NEAR = 95000;
 
-  const S = { jobs: [], profile: null, tab: "matches", track: "All", showPassed: false, open: new Set(), loaded: false };
+  const S = { jobs: [], profile: null, tab: "matches", track: "All", open: new Set(), loaded: false };
   let db = null, sample = null, pendingRender = false;
 
-  try { const t = localStorage.getItem("jd.tab"); if (t) S.tab = t; } catch(e) {}
+  try { const t = localStorage.getItem("jd.tab"); if (["matches","apply","passed","add"].includes(t)) S.tab = t; } catch(e) {}
   const hash = (location.hash || "").slice(1);
-  if (["matches","apply","add"].includes(hash)) S.tab = hash;
+  if (["matches","apply","passed","add"].includes(hash)) S.tab = hash;
 
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -265,22 +269,22 @@ form.add .full{grid-column:1/-1}
     $("#st-due-box").classList.toggle("alert", due > 0);
     $("#n-matches").textContent = matches.length || "";
     $("#n-apply").textContent = apply.length || "";
+    $("#n-passed").textContent = jobs.filter(j => j.status === "passed").length || "";
     document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === S.tab)));
     const v = $("#view");
     if (!S.loaded) { v.innerHTML = '<div class="empty" style="margin-top:18px">Loading your tracker…</div>'; return; }
     if (S.tab === "matches") v.innerHTML = renderMatches(jobs);
     else if (S.tab === "apply") v.innerHTML = renderApply(apply);
+    else if (S.tab === "passed") v.innerHTML = renderPassed(jobs);
     else v.innerHTML = renderAdd();
   }
 
   function renderMatches(jobs){
-    let list = jobs.filter(j => j.status === "new" || j.status === "saved" || (S.showPassed && j.status === "passed"));
+    let list = jobs.filter(j => j.status === "new" || j.status === "saved");
     if (S.track !== "All") list = list.filter(j => j.track === S.track);
     list.sort((a,b) => (b.status==="saved") - (a.status==="saved") || (b.fit ?? -1) - (a.fit ?? -1));
     const seg = TRACKS.map(t => `<button data-act="track" data-v="${t}" aria-pressed="${S.track===t}">${t}</button>`).join("");
-    const passedN = jobs.filter(j => j.status === "passed").length;
     let html = `<div class="toolbar"><div class="seg" role="group" aria-label="Track">${seg}</div>
-      <button class="btn ghost" data-act="showpassed">${S.showPassed ? "Hide passed" : "Show passed ("+passedN+")"}</button>
       <span class="hint">Sorted by fit to your CV</span></div>`;
     if (!list.length) return html + `<div class="empty">No matches in this view. Ask Claude to run a new search, or add one yourself.</div>`;
     html += '<div class="list">' + list.map(card).join("") + "</div>";
@@ -303,10 +307,17 @@ form.add .full{grid-column:1/-1}
           <button class="btn primary" data-act="start" data-id="${esc(j.id)}">Start application</button>
           ${j.url ? `<a class="btn" href="${esc(j.url)}" target="_blank" rel="noopener">Open posting ↗</a>` : ""}
           ${j.status === "saved" ? `<button class="btn" data-act="status" data-v="new" data-id="${esc(j.id)}">Unsave</button>` : j.status === "new" ? `<button class="btn" data-act="status" data-v="saved" data-id="${esc(j.id)}">Save</button>` : ""}
-          ${j.status === "passed" ? `<button class="btn ghost" data-act="status" data-v="new" data-id="${esc(j.id)}">Restore</button>` : `<button class="btn ghost" data-act="status" data-v="passed" data-id="${esc(j.id)}">Pass</button>`}
+          ${j.status === "passed" ? `<button class="btn" data-act="status" data-v="new" data-id="${esc(j.id)}">Restore to matches</button>` : `<button class="btn ghost" data-act="status" data-v="passed" data-id="${esc(j.id)}">Pass ✕</button>`}
         </div>
       </div>
     </article>`;
+  }
+
+  function renderPassed(jobs){
+    const list = jobs.filter(j => j.status === "passed").sort((a,b) => (b.fit ?? -1) - (a.fit ?? -1));
+    const html = `<div class="toolbar"><span class="hint" style="margin-left:0">Jobs you've passed on. Restore one to put it back in Matches.</span></div>`;
+    if (!list.length) return html + `<div class="empty">Nothing passed yet. Jobs you mark “Pass” land here.</div>`;
+    return html + '<div class="list">' + list.map(card).join("") + "</div>";
   }
 
   function renderApply(list){
@@ -319,7 +330,7 @@ form.add .full{grid-column:1/-1}
   }
   function appRow(j){
     const open = S.open.has(j.id);
-    const opts = APPLY_STATUSES.map(s => `<option value="${s}"${s===j.status?" selected":""}>${STATUS_LABEL[s]}</option>`).join("") + `<option value="new">Back to matches</option>`;
+    const opts = APPLY_STATUSES.map(s => `<option value="${s}"${s===j.status?" selected":""}>${STATUS_LABEL[s]}</option>`).join("") + `<option value="new">Back to matches</option><option value="passed">Pass (move to Passed)</option>`;
     const since = j.appliedDate ? daysBetween(j.appliedDate, today()) : null;
     const due = followDue(j);
     const s = salary(j);
@@ -331,7 +342,8 @@ form.add .full{grid-column:1/-1}
     return `<section class="app" id="app-${esc(j.id)}">
       <div class="app-head">
         <div class="title"><h3>${title}</h3><div class="meta">${esc(j.company)} · ${esc(j.location)}</div>
-          <div class="chips"><span class="chip t-${esc(j.track)}">${esc(j.track)}</span><span class="chip s-${s.cls}">${esc(s.label)}</span></div></div>
+          <div class="chips"><span class="chip t-${esc(j.track)}">${esc(j.track)}</span><span class="chip s-${s.cls}">${esc(s.label)}</span></div>
+          <div class="moves"><button class="link" data-act="status" data-v="new" data-id="${esc(j.id)}">↩ Back to matches</button><button class="link" data-act="status" data-v="passed" data-id="${esc(j.id)}">✕ Pass</button></div></div>
         <div class="field"><label for="st-${esc(j.id)}">Stage</label><select id="st-${esc(j.id)}" data-act="stage" data-id="${esc(j.id)}">${opts}</select></div>
         <div class="field"><label for="ad-${esc(j.id)}">Applied</label><input type="date" id="ad-${esc(j.id)}" data-act="date" data-f="appliedDate" data-id="${esc(j.id)}" value="${esc(j.appliedDate||"")}"><span class="sub">${since!=null ? since+"d ago" : "&nbsp;"}</span></div>
         <div class="field"><label for="fu-${esc(j.id)}">Follow up</label><input type="date" id="fu-${esc(j.id)}" data-act="date" data-f="followUpDate" data-id="${esc(j.id)}" value="${esc(j.followUpDate||"")}"><span class="sub${due?" due":""}">${due ? "Due now" : "&nbsp;"}</span></div>
@@ -388,7 +400,6 @@ form.add .full{grid-column:1/-1}
     const b = e.target.closest("[data-act]"); if (!b || b.tagName === "SELECT" || b.tagName === "INPUT" || b.tagName === "TEXTAREA") return;
     const act = b.dataset.act, j = b.dataset.id ? byId(b.dataset.id) : null;
     if (act === "track") { S.track = b.dataset.v; render(); }
-    else if (act === "showpassed") { S.showPassed = !S.showPassed; render(); }
     else if (act === "status" && j) { await setStatus(j, b.dataset.v); }
     else if (act === "start" && j) { S.open.add(j.id); if (await setStatus(j, "drafting")) { S.tab = "apply"; render(); } }
     else if (act === "toggle" && j) { S.open.has(j.id) ? S.open.delete(j.id) : S.open.add(j.id); render(); }

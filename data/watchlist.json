@@ -1,0 +1,334 @@
+{
+  "companies": [
+    {
+      "name": "Lonza",
+      "category": "Houston area",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Cellipont Bioservices",
+      "category": "Houston area",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "FUJIFILM Diosynth Biotechnologies",
+      "category": "Houston area",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Kiromic BioPharma",
+      "category": "Houston area",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Tvardi Therapeutics",
+      "category": "Houston area",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Coya Therapeutics",
+      "category": "Houston area",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "CellChorus",
+      "category": "Houston area",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "March Biosciences",
+      "category": "Houston area",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Moleculin Biotech",
+      "category": "Houston area",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Texas Medical Center (TMC)",
+      "category": "Houston area",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Capricor Therapeutics",
+      "category": "EV / exosome",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Direct Biologics",
+      "category": "EV / exosome",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Aegle Therapeutics",
+      "category": "EV / exosome",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "System Biosciences (SBI)",
+      "category": "EV / exosome",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Izon Science",
+      "category": "EV / exosome",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "NanoFCM",
+      "category": "EV / exosome",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Particle Metrix",
+      "category": "EV / exosome",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Sartorius",
+      "category": "Bioprocess & tools",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Thermo Fisher Scientific",
+      "category": "Bioprocess & tools",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Cytiva",
+      "category": "Bioprocess & tools",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "MilliporeSigma",
+      "category": "Bioprocess & tools",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Repligen",
+      "category": "Bioprocess & tools",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Avantor",
+      "category": "Bioprocess & tools",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Bio-Techne",
+      "category": "Bioprocess & tools",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Miltenyi Biotec",
+      "category": "Bioprocess & tools",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "BD Biosciences",
+      "category": "Bioprocess & tools",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Cytek Biosciences",
+      "category": "Bioprocess & tools",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Malvern Panalytical",
+      "category": "Bioprocess & tools",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Beckman Coulter",
+      "category": "Bioprocess & tools",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Charles River Laboratories",
+      "category": "CDMO / cell & gene therapy",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Resilience",
+      "category": "CDMO / cell & gene therapy",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Oxford Biomedica",
+      "category": "CDMO / cell & gene therapy",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Minaris Advanced Therapies",
+      "category": "CDMO / cell & gene therapy",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Andelyn Biosciences",
+      "category": "CDMO / cell & gene therapy",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Cellares",
+      "category": "CDMO / cell & gene therapy",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "ElevateBio",
+      "category": "CDMO / cell & gene therapy",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Aldevron",
+      "category": "CDMO / cell & gene therapy",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "SK pharmteco",
+      "category": "CDMO / cell & gene therapy",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Made Scientific",
+      "category": "CDMO / cell & gene therapy",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Dark Horse Consulting",
+      "category": "Consulting",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "ZS Associates",
+      "category": "Consulting",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Clarkston Consulting",
+      "category": "Consulting",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Trinity Life Sciences",
+      "category": "Consulting",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Health Advances",
+      "category": "Consulting",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "Putnam (Inizio)",
+      "category": "Consulting",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "L.E.K. Consulting",
+      "category": "Consulting",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    },
+    {
+      "name": "ProPharma Group",
+      "category": "Consulting",
+      "ats": null,
+      "slug": null,
+      "addedBy": "Claude"
+    }
+  ],
+  "updatedAt": "2026-09-26"
+}

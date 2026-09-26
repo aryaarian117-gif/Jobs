@@ -1,0 +1,39 @@
+{
+  "title": "Single Use Technology Expert",
+  "company": "Sartorius",
+  "location": "Remote (US)",
+  "mode": "Remote",
+  "track": "Intersection",
+  "salaryMin": 110000,
+  "salaryMax": 135000,
+  "url": "https://to.indeed.com/aacw9g2cnrcy",
+  "source": "Indeed",
+  "postedDate": "2026-09-25",
+  "fit": 91,
+  "fitWhy": "Asks for 3+ years in process development or MS&T plus technical selling and project management, with revenue targets for the single-use portfolio. Your PranaX cleanroom build-out, tech transfer and scale-up match the technical half; the Rice MBA covers the commercial half.",
+  "gaps": "No formal technical-sales title yet. Frame PranaX equipment procurement and vendor qualification as the customer-side view of what Sartorius sells.",
+  "posting": "Remote role in Bioprocess Solutions. Own revenue growth for the single-use portfolio with sales and field application specialists; protect run-rate business; work with MSAT/PD scientists to design and implement single-use assemblies; project-manage SUT projects across Product Management, Quality and Engineering. Wants BS in life science/engineering (MS a plus), 3+ yrs PD or process/manufacturing support, ~1 yr technical selling, project management, knowledge of ISO, USP, extractables/leachables.",
+  "status": "drafting",
+  "history": [
+    {
+      "date": "2026-09-26",
+      "status": "new"
+    },
+    {
+      "date": "2026-09-26",
+      "status": "drafting"
+    }
+  ],
+  "tailoring": [
+    "Lead your summary with 'MSAT scientist and Rice MBA' so both halves show in the first line.",
+    "Under PranaX, add a bullet on equipment and consumables selection and vendor management, if accurate, with scale (number of vendors, budget).",
+    "If you used single-use bioreactors, bags or tubing assemblies, name them explicitly; the posting screens for single-use experience.",
+    "Mention any extractables/leachables or USP <665>/<661> work, even if minor."
+  ],
+  "foundDate": "2026-09-26",
+  "draft": {
+    "coverLetter": "Dear Sartorius Hiring Team,\n\nI am applying for the Single Use Technology Expert role in Bioprocess Solutions. For the past two years I have been on the customer side of the conversations this role leads. As the first employee at PranaX, I built and ran an ISO-certified cleanroom for GMP exosome manufacturing, and I selected, procured and qualified the equipment that process runs on.\n\nThat work covered the full path from process development to clinical manufacturing: technology transfer, scale-up, IQ/OQ/PQ, aseptic operations, batch records, QC, and regulatory alignment. I know what an MSAT or PD scientist needs to see before committing to a new technology, because I had to justify those choices to quality and to leadership myself.\n\nI recently completed my MBA at Rice University, and I am moving deliberately toward roles that combine technical depth with commercial responsibility. This position does that directly. It means owning growth for the single-use portfolio alongside sales and field application specialists, and running projects that bring Product Management, Quality and Engineering together around a customer's process.\n\nBefore PranaX, I spent three years as a research scientist in the Kalluri Laboratory at MD Anderson, engineering extracellular vesicles for vaccine delivery and preparing MSC-derived EVs for GLP studies. That work contributed to six peer-reviewed publications. Today I lead operational build-out for the CPRIT Texas EVCore at MD Anderson, where I scope custom projects with investigators and clients and deliver results under SOP-controlled workflows.\n\nI would welcome the chance to discuss how my manufacturing background and business training could help Sartorius grow single-use adoption with process development and MS&T teams.\n\nSincerely,\nArya Arian",
+    "updatedAt": "2026-09-26",
+    "by": "Claude"
+  }
+}

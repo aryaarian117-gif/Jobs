@@ -203,6 +203,7 @@ form.add .full{grid-column:1/-1}
 
   <nav class="tabs" role="tablist">
     <button class="tab" role="tab" id="tab-matches" data-tab="matches">Matches<span class="n" id="n-matches"></span></button>
+    <button class="tab" role="tab" id="tab-leads" data-tab="leads">Leads<span class="n" id="n-leads"></span></button>
     <button class="tab" role="tab" id="tab-apply" data-tab="apply">Apply<span class="n" id="n-apply"></span></button>
     <button class="tab" role="tab" id="tab-passed" data-tab="passed">Passed<span class="n" id="n-passed"></span></button>
     <button class="tab" role="tab" id="tab-add" data-tab="add">Add &amp; sources</button>
@@ -222,7 +223,7 @@ form.add .full{grid-column:1/-1}
     {k:"closed", label:"Closed"}
   ];
   const APPLY_STATUSES = ["drafting","applied","interview","offer","rejected","withdrawn"];
-  const STATUS_LABEL = {new:"Matches",saved:"Saved",passed:"Passed",drafting:"Drafting",applied:"Applied",interview:"Interview",offer:"Offer",rejected:"Rejected",withdrawn:"Withdrawn"};
+  const STATUS_LABEL = {lead:"Leads",new:"Matches",saved:"Saved",passed:"Passed",drafting:"Drafting",applied:"Applied",interview:"Interview",offer:"Offer",rejected:"Rejected",withdrawn:"Withdrawn"};
   const TRACKS = ["All","Business","Intersection","Technical"];
   const FLOOR = 100000, NEAR = 95000, CUTOFF = 70;
   const MARK = {yes:"✓", partial:"◐", no:"✗", unknown:"?"};
@@ -254,9 +255,9 @@ form.add .full{grid-column:1/-1}
   const S = { jobs: [], profile: null, watch: null, tab: "matches", track: "All", open: new Set(), loaded: false };
   let db = null, sample = null, pendingRender = false;
 
-  try { const t = localStorage.getItem("jd.tab"); if (["matches","apply","passed","add"].includes(t)) S.tab = t; } catch(e) {}
+  try { const t = localStorage.getItem("jd.tab"); if (["matches","leads","apply","passed","add"].includes(t)) S.tab = t; } catch(e) {}
   const hash = (location.hash || "").slice(1);
-  if (["matches","apply","passed","add"].includes(hash)) S.tab = hash;
+  if (["matches","leads","apply","passed","add"].includes(hash)) S.tab = hash;
 
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -321,6 +322,7 @@ form.add .full{grid-column:1/-1}
     $("#st-due").textContent = due;
     $("#st-due-box").classList.toggle("alert", due > 0);
     $("#n-matches").textContent = matches.length || "";
+    $("#n-leads").textContent = jobs.filter(j => j.status === "lead").length || "";
     $("#n-apply").textContent = apply.length || "";
     $("#n-passed").textContent = jobs.filter(j => j.status === "passed").length || "";
     document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === S.tab)));
@@ -328,6 +330,7 @@ form.add .full{grid-column:1/-1}
     if (!S.loaded) { v.innerHTML = '<div class="empty" style="margin-top:18px">Loading your tracker…</div>'; return; }
     if (S.tab === "matches") v.innerHTML = renderMatches(jobs);
     else if (S.tab === "apply") v.innerHTML = renderApply(apply);
+    else if (S.tab === "leads") v.innerHTML = renderLeads(jobs);
     else if (S.tab === "passed") v.innerHTML = renderPassed(jobs);
     else v.innerHTML = renderAdd();
   }
@@ -362,11 +365,19 @@ form.add .full{grid-column:1/-1}
         <div class="actions">
           <button class="btn primary" data-act="start" data-id="${esc(j.id)}">Start application</button>
           ${j.url ? `<a class="btn" href="${esc(j.url)}" target="_blank" rel="noopener">Open posting ↗</a>` : ""}
+          ${j.status === "lead" ? `<button class="btn" data-act="status" data-v="new" data-id="${esc(j.id)}">Promote to matches</button>` : ""}
           ${j.status === "saved" ? `<button class="btn" data-act="status" data-v="new" data-id="${esc(j.id)}">Unsave</button>` : j.status === "new" ? `<button class="btn" data-act="status" data-v="saved" data-id="${esc(j.id)}">Save</button>` : ""}
           ${j.status === "passed" ? `<button class="btn" data-act="status" data-v="new" data-id="${esc(j.id)}">Restore to matches</button>` : `<button class="btn ghost" data-act="status" data-v="passed" data-id="${esc(j.id)}">Pass ✕</button>`}
         </div>
       </div>
     </article>`;
+  }
+
+  function renderLeads(jobs){
+    const list = jobs.filter(j => j.status === "lead").sort((a,b) => String(b.foundDate||"").localeCompare(String(a.foundDate||"")));
+    const html = `<div class="toolbar"><span class="hint" style="margin-left:0">Promising postings found online whose full requirements couldn't be read. Open the posting, then promote it to Matches or pass.</span></div>`;
+    if (!list.length) return html + `<div class="empty">No leads right now.</div>`;
+    return html + '<div class="list">' + list.map(card).join("") + "</div>";
   }
 
   function renderPassed(jobs){
@@ -400,6 +411,7 @@ form.add .full{grid-column:1/-1}
         <div class="title"><h3>${title}</h3><div class="meta">${esc(j.company)} · ${esc(j.location)}</div>
           <div class="chips"><span class="chip t-${esc(j.track)}">${esc(j.track)}</span><span class="chip s-${s.cls}">${esc(s.label)}</span>${j.fit != null ? `<span class="chip s-none mono">Fit ${esc(j.fit)}</span>` : ""}${fitChips(j)}</div>
           ${j.gate ? `<div class="gatebox"><b>Hard requirement:</b> ${esc(j.gate)}</div>` : ""}
+          ${Array.isArray(j.emailUpdates) && j.emailUpdates.length ? `<div class="small" style="margin-top:6px">✉ ${esc(j.emailUpdates[j.emailUpdates.length-1].date)}: ${esc(j.emailUpdates[j.emailUpdates.length-1].summary)}</div>` : ""}
           <div class="moves"><button class="link" data-act="status" data-v="new" data-id="${esc(j.id)}">↩ Back to matches</button><button class="link" data-act="status" data-v="passed" data-id="${esc(j.id)}">✕ Pass</button></div></div>
         <div class="field"><label for="st-${esc(j.id)}">Stage</label><select id="st-${esc(j.id)}" data-act="stage" data-id="${esc(j.id)}">${opts}</select></div>
         <div class="field"><label for="ad-${esc(j.id)}">Applied</label><input type="date" id="ad-${esc(j.id)}" data-act="date" data-f="appliedDate" data-id="${esc(j.id)}" value="${esc(j.appliedDate||"")}"><span class="sub">${since!=null ? since+"d ago" : "&nbsp;"}</span></div>
@@ -424,6 +436,7 @@ form.add .full{grid-column:1/-1}
           ${tail}
           <h4 style="margin-top:16px">Notes</h4>
           <textarea class="notes" id="nt-${esc(j.id)}" data-act="notes" data-id="${esc(j.id)}" placeholder="Recruiter name, referral, questions to ask…">${esc(j.notes||"")}</textarea>
+          ${Array.isArray(j.emailUpdates) && j.emailUpdates.length ? `<h4 style="margin-top:16px">Email updates</h4><ul class="hist">${j.emailUpdates.slice().reverse().map(u => `<li><span class="mono">${esc(u.date)}</span><span>${esc(u.summary)}${u.url ? ` · <a href="${esc(u.url)}" target="_blank" rel="noopener">Open email ↗</a>` : ""}</span></li>`).join("")}</ul>` : ""}
           <h4 style="margin-top:16px">Timeline</h4>
           ${hist}
         </div>

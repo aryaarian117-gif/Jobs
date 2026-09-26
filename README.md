@@ -8,4 +8,6 @@ Private job-search tracker for a biotech operations → business career move.
 
 Search criteria: Houston, TX or remote · base salary ≥ $100k (flag ranges within 5%) · business roles, ideally where they meet GMP manufacturing / MSAT.
 
+Fit (0–100): hard gates first (location, pay, degree, seniority ≤ Associate Director, no commission sales, years), then Required qualifications 50 · Experience 15 · Preferred 15 · Direction 20. Capped at 75 when requirements come from a summary, 60 when unverified. Matches cutoff: 70.
+
 Salary badges: **meets floor** (min ≥ $100k), **reaches $100k** (range spans it), **within 5%** (top ≥ $95k), **not posted**.

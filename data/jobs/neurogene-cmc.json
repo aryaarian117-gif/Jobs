@@ -9,15 +9,47 @@
   "url": "https://www.ziprecruiter.com/job-redirect?match_token=CpQBChZyNjNnX0FvNEF0Q0RXb3A5QTQwZkV3EiQwMWEwZGRmYS03MDA2LTc1YmQtOTA0MS04NmJiNzBjM2E2MzkaUEFBRVl2OWpiQW1FQ0ZBVnN5bU1PZGR1RnNjZTB2NVNzcjlKT1BLNk44bXA3bFhBWkM2WGd6YVk0OGUtcmlIMHlRUmZiVDJaaUh5STIwQ2ozIMmtBRABGMmtBQ%3D%3D&tsid=100000502",
   "source": "ZipRecruiter",
   "postedDate": "2026-09-01",
-  "fit": 52,
-  "fitWhy": "CMC leadership for gene therapy. Your tech transfer and GMP build-out are relevant.",
-  "gaps": "Senior Director CMC roles usually want 12+ years of experience. Treat it as a reach, or as a way to reach the hiring team for a more junior CMC role.",
-  "status": "new",
+  "fit": 23,
+  "fitWhy": "Relevant field, well above your level.",
+  "gaps": "",
+  "status": "passed",
   "history": [
     {
       "date": "2026-09-26",
       "status": "new"
+    },
+    {
+      "date": "2026-09-26",
+      "status": "passed"
     }
   ],
-  "foundDate": "2026-09-26"
+  "foundDate": "2026-09-26",
+  "reqs": [
+    {
+      "text": "10+ years in biologics or advanced-therapy CMC",
+      "kind": "required",
+      "met": "no"
+    },
+    {
+      "text": "Depth across analytical development, PD/MSAT, and QC/QA",
+      "kind": "required",
+      "met": "partial"
+    },
+    {
+      "text": "ICH Q5–Q14 and FDA/EMA gene therapy CMC expectations",
+      "kind": "required",
+      "met": "partial"
+    }
+  ],
+  "fitParts": {
+    "required": 17,
+    "experience": 0,
+    "preferred": 0,
+    "direction": 6
+  },
+  "verified": "partial",
+  "reqSource": "Neurogene listing via web search",
+  "gate": "Senior Director (above your Associate Director ceiling) requiring 10+ years of CMC experience.",
+  "scoredAt": "2026-09-26",
+  "passReason": "Failed a hard requirement."
 }

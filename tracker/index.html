@@ -95,6 +95,20 @@ button,input,select,textarea{font:inherit;color:inherit}
 .why{margin:10px 0 0;font-size:14px;max-width:72ch}
 .why b{font-weight:600}
 .gap{color:var(--muted)}
+.score{margin-top:12px;border:1px solid var(--line);border-radius:6px;background:var(--bg)}
+.score summary{cursor:pointer;padding:8px 12px;font-size:13px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;list-style:none}
+.score summary::-webkit-details-marker{display:none}
+.score summary::before{content:"▸";color:var(--muted)}
+.score[open] summary::before{content:"▾"}
+.score summary .mono{font-size:12px;color:var(--muted)}
+.score summary .mono b{color:var(--ink);font-weight:600}
+.reqs{list-style:none;margin:0;padding:4px 12px 12px;display:grid;gap:4px;font-size:13px}
+.reqs li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:6px;align-items:start}
+.reqs .mk{font-family:var(--mono);font-weight:600;text-align:center}
+.reqs .m-yes{color:var(--good)} .reqs .m-partial{color:var(--warn)} .reqs .m-no{color:var(--bad)} .reqs .m-unknown{color:var(--muted)}
+.reqs .kind{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-left:6px}
+.reqs .h{grid-column:1/-1;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.gatebox{margin-top:10px;padding:8px 12px;border-radius:6px;background:var(--bad-soft);color:var(--bad);font-size:13px;max-width:72ch}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .btn{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:6px 12px;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
 .btn:hover{border-color:var(--muted)}
@@ -196,7 +210,32 @@ form.add .full{grid-column:1/-1}
   const APPLY_STATUSES = ["drafting","applied","interview","offer","rejected","withdrawn"];
   const STATUS_LABEL = {new:"Matches",saved:"Saved",passed:"Passed",drafting:"Drafting",applied:"Applied",interview:"Interview",offer:"Offer",rejected:"Rejected",withdrawn:"Withdrawn"};
   const TRACKS = ["All","Business","Intersection","Technical"];
-  const FLOOR = 100000, NEAR = 95000;
+  const FLOOR = 100000, NEAR = 95000, CUTOFF = 70;
+  const MARK = {yes:"✓", partial:"◐", no:"✗", unknown:"?"};
+  const VERIFIED = {full:"Full posting read", partial:"Requirements from a summary", none:"Requirements not verified"};
+  function reqSummary(j){
+    const r = Array.isArray(j.reqs) ? j.reqs.filter(x => x.kind === "required") : [];
+    if (!r.length) return "";
+    const y = r.filter(x => x.met === "yes").length, p = r.filter(x => x.met === "partial").length;
+    return `Meets ${y} of ${r.length} required` + (p ? ` · ${p} partly` : "");
+  }
+  function scoreBlock(j){
+    const f = j.fitParts, reqs = Array.isArray(j.reqs) ? j.reqs : [];
+    if (!f && !reqs.length) return "";
+    const parts = f ? `<span class="mono">Required <b>${f.required}</b>/50</span><span class="mono">Experience <b>${f.experience}</b>/15</span><span class="mono">Preferred <b>${f.preferred}</b>/15</span><span class="mono">Direction <b>${f.direction}</b>/20</span>` : "";
+    const row = x => `<li><span class="mk m-${esc(x.met)}" aria-label="${esc(x.met)}">${MARK[x.met] || "?"}</span><span>${esc(x.text)}${x.note ? ` <span class="small">(${esc(x.note)})</span>` : ""}</span></li>`;
+    const req = reqs.filter(x => x.kind === "required"), pref = reqs.filter(x => x.kind !== "required");
+    const list = (req.length ? `<li class="h">Required</li>` + req.map(row).join("") : "") + (pref.length ? `<li class="h">Preferred</li>` + pref.map(row).join("") : "");
+    return `<details class="score"><summary><span>${esc(reqSummary(j) || "Score breakdown")}</span>${parts}</summary>
+      <ul class="reqs">${list}${j.verified ? `<li class="h">${esc(VERIFIED[j.verified] || "")}${j.reqSource ? " · " + esc(j.reqSource) : ""}</li>` : ""}</ul></details>`;
+  }
+  function fitChips(j){
+    let c = "";
+    if (j.verified && j.verified !== "full") c += `<span class="chip s-near">${esc(VERIFIED[j.verified])}</span>`;
+    if (j.gate) c += `<span class="chip s-below">Fails a hard requirement</span>`;
+    else if (j.fit != null && j.fit < CUTOFF) c += `<span class="chip s-below">Below ${CUTOFF} cutoff</span>`;
+    return c;
+  }
 
   const S = { jobs: [], profile: null, tab: "matches", track: "All", open: new Set(), loaded: false };
   let db = null, sample = null, pendingRender = false;
@@ -285,7 +324,7 @@ form.add .full{grid-column:1/-1}
     list.sort((a,b) => (b.status==="saved") - (a.status==="saved") || (b.fit ?? -1) - (a.fit ?? -1));
     const seg = TRACKS.map(t => `<button data-act="track" data-v="${t}" aria-pressed="${S.track===t}">${t}</button>`).join("");
     let html = `<div class="toolbar"><div class="seg" role="group" aria-label="Track">${seg}</div>
-      <span class="hint">Sorted by fit to your CV</span></div>`;
+      <span class="hint">Sorted by fit · cutoff ${CUTOFF}</span></div>`;
     if (!list.length) return html + `<div class="empty">No matches in this view. Ask Claude to run a new search, or add one yourself.</div>`;
     html += '<div class="list">' + list.map(card).join("") + "</div>";
     return html;
@@ -296,13 +335,16 @@ form.add .full{grid-column:1/-1}
     const title = j.url ? `<a href="${esc(j.url)}" target="_blank" rel="noopener">${esc(j.title)}</a>` : esc(j.title);
     const posted = j.postedDate ? `Posted ${fmtDate(j.postedDate)}` : "";
     return `<article class="card">
-      <div class="fit" title="Fit to your CV, out of 100"><b>${fit}</b><div class="bar"><i style="width:${+j.fit||0}%"></i></div><small>Fit</small></div>
+      <div class="fit" title="Fit to your qualifications, out of 100"><b>${fit}</b><div class="bar"><i style="width:${+j.fit||0}%"></i></div><small>Fit</small></div>
       <div>
         <h3>${title}</h3>
         <div class="meta">${esc(j.company)} · ${esc(j.location)}${posted ? " · "+posted : ""}${j.source ? " · via "+esc(j.source) : ""}</div>
-        <div class="chips"><span class="chip t-${esc(j.track)}">${esc(j.track)}</span><span class="chip s-${s.cls}">${esc(s.label)}</span>${j.mode ? `<span class="chip s-none">${esc(j.mode)}</span>` : ""}${j.status==="saved" ? '<span class="chip s-spans">Saved</span>' : ""}${j.status==="passed" ? '<span class="chip s-below">Passed</span>' : ""}</div>
+        <div class="chips"><span class="chip t-${esc(j.track)}">${esc(j.track)}</span><span class="chip s-${s.cls}">${esc(s.label)}</span>${j.mode ? `<span class="chip s-none">${esc(j.mode)}</span>` : ""}${j.status==="saved" ? '<span class="chip s-spans">Saved</span>' : ""}${fitChips(j)}</div>
+        ${j.gate ? `<div class="gatebox"><b>Hard requirement:</b> ${esc(j.gate)}</div>` : ""}
+        ${j.status === "passed" && j.passReason && !j.gate ? `<div class="gatebox">${esc(j.passReason)}</div>` : ""}
         ${j.fitWhy ? `<p class="why"><b>Why it fits.</b> ${esc(j.fitWhy)}</p>` : ""}
         ${j.gaps ? `<p class="why gap"><b>Watch for.</b> ${esc(j.gaps)}</p>` : ""}
+        ${scoreBlock(j)}
         <div class="actions">
           <button class="btn primary" data-act="start" data-id="${esc(j.id)}">Start application</button>
           ${j.url ? `<a class="btn" href="${esc(j.url)}" target="_blank" rel="noopener">Open posting ↗</a>` : ""}
@@ -315,7 +357,7 @@ form.add .full{grid-column:1/-1}
 
   function renderPassed(jobs){
     const list = jobs.filter(j => j.status === "passed").sort((a,b) => (b.fit ?? -1) - (a.fit ?? -1));
-    const html = `<div class="toolbar"><span class="hint" style="margin-left:0">Jobs you've passed on. Restore one to put it back in Matches.</span></div>`;
+    const html = `<div class="toolbar"><span class="hint" style="margin-left:0">Jobs you passed on, or that failed a hard requirement or scored under ${CUTOFF}. Restore one to put it back in Matches.</span></div>`;
     if (!list.length) return html + `<div class="empty">Nothing passed yet. Jobs you mark “Pass” land here.</div>`;
     return html + '<div class="list">' + list.map(card).join("") + "</div>";
   }
@@ -342,7 +384,8 @@ form.add .full{grid-column:1/-1}
     return `<section class="app" id="app-${esc(j.id)}">
       <div class="app-head">
         <div class="title"><h3>${title}</h3><div class="meta">${esc(j.company)} · ${esc(j.location)}</div>
-          <div class="chips"><span class="chip t-${esc(j.track)}">${esc(j.track)}</span><span class="chip s-${s.cls}">${esc(s.label)}</span></div>
+          <div class="chips"><span class="chip t-${esc(j.track)}">${esc(j.track)}</span><span class="chip s-${s.cls}">${esc(s.label)}</span>${j.fit != null ? `<span class="chip s-none mono">Fit ${esc(j.fit)}</span>` : ""}${fitChips(j)}</div>
+          ${j.gate ? `<div class="gatebox"><b>Hard requirement:</b> ${esc(j.gate)}</div>` : ""}
           <div class="moves"><button class="link" data-act="status" data-v="new" data-id="${esc(j.id)}">↩ Back to matches</button><button class="link" data-act="status" data-v="passed" data-id="${esc(j.id)}">✕ Pass</button></div></div>
         <div class="field"><label for="st-${esc(j.id)}">Stage</label><select id="st-${esc(j.id)}" data-act="stage" data-id="${esc(j.id)}">${opts}</select></div>
         <div class="field"><label for="ad-${esc(j.id)}">Applied</label><input type="date" id="ad-${esc(j.id)}" data-act="date" data-f="appliedDate" data-id="${esc(j.id)}" value="${esc(j.appliedDate||"")}"><span class="sub">${since!=null ? since+"d ago" : "&nbsp;"}</span></div>
@@ -362,6 +405,7 @@ form.add .full{grid-column:1/-1}
           </div>
         </div>
         <div>
+          ${scoreBlock(j) ? `<h4>Requirements check</h4>${scoreBlock(j).replace('<details class="score">','<details class="score" open>')}<div style="height:16px"></div>` : ""}
           <h4>Tailor your resume</h4>
           ${tail}
           <h4 style="margin-top:16px">Notes</h4>

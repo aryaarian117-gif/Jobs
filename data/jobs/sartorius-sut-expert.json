@@ -9,9 +9,9 @@
   "url": "https://to.indeed.com/aacw9g2cnrcy",
   "source": "Indeed",
   "postedDate": "2026-09-25",
-  "fit": 91,
-  "fitWhy": "Asks for 3+ years in process development or MS&T plus technical selling and project management, with revenue targets for the single-use portfolio. Your PranaX cleanroom build-out, tech transfer and scale-up match the technical half; the Rice MBA covers the commercial half.",
-  "gaps": "No formal technical-sales title yet. Frame being in charge of PranaX equipment procurement and qualification as the customer-side view of what Sartorius sells.",
+  "fit": 77,
+  "fitWhy": "Strongest verified match. You meet 6 of 9 requirements outright, and the role combines MS&T depth with revenue ownership, which is the direction you want.",
+  "gaps": "No technical-selling experience and slightly under the 3 years of industry experience. Address both directly in the letter.",
   "posting": "Remote role in Bioprocess Solutions. Own revenue growth for the single-use portfolio with sales and field application specialists; protect run-rate business; work with MSAT/PD scientists to design and implement single-use assemblies; project-manage SUT projects across Product Management, Quality and Engineering. Wants BS in life science/engineering (MS a plus), 3+ yrs PD or process/manufacturing support, ~1 yr technical selling, project management, knowledge of ISO, USP, extractables/leachables.",
   "status": "drafting",
   "history": [
@@ -35,5 +35,75 @@
     "coverLetter": "Dear Sartorius Hiring Team,\n\nI am applying for the Single Use Technology Expert role in Bioprocess Solutions. For the past two years I have been on the customer side of the conversations this role leads. As the first employee at PranaX, I led the build-out and operation of an ISO-certified cleanroom for GMP exosome manufacturing, and I was in charge of procuring the equipment that process runs on and overseeing its qualification.\n\nThat work covered the full path from process development to clinical manufacturing: technology transfer, scale-up, IQ/OQ/PQ, aseptic operations, batch records, QC, and regulatory alignment. I know what an MSAT or PD scientist needs to see before committing to a new technology, because I was accountable for those choices to quality and to leadership.\n\nI recently completed my MBA at Rice University, and I am moving deliberately toward roles that combine technical depth with commercial responsibility. This position does that directly. It means owning growth for the single-use portfolio alongside sales and field application specialists, and running projects that bring Product Management, Quality and Engineering together around a customer's process.\n\nBefore PranaX, I spent three years as a research scientist in the Kalluri Laboratory at MD Anderson, engineering extracellular vesicles for vaccine delivery and preparing MSC-derived EVs for GLP studies. That work contributed to six peer-reviewed publications. Today I lead operational build-out for the CPRIT Texas EVCore at MD Anderson, where I scope custom projects with investigators and clients and deliver results under SOP-controlled workflows.\n\nI would welcome the chance to discuss how my manufacturing background and business training could help Sartorius grow single-use adoption with process development and MS&T teams.\n\nSincerely,\nArya Arian",
     "updatedAt": "2026-09-26",
     "by": "Claude"
-  }
+  },
+  "reqs": [
+    {
+      "text": "Bachelor's in engineering, life science or related",
+      "kind": "required",
+      "met": "yes",
+      "note": "BS Biochemistry"
+    },
+    {
+      "text": "3+ years in process development or process/manufacturing support",
+      "kind": "required",
+      "met": "partial",
+      "note": "~2.5 industry years at PranaX + EVCore"
+    },
+    {
+      "text": "Relevant technical and extensive pharma/biotech industry knowledge",
+      "kind": "required",
+      "met": "yes"
+    },
+    {
+      "text": "Technical selling experience, ideally 1+ year",
+      "kind": "required",
+      "met": "no"
+    },
+    {
+      "text": "Hands-on biomanufacturing and/or PD / MS&T",
+      "kind": "required",
+      "met": "yes",
+      "note": "MSAT at PranaX"
+    },
+    {
+      "text": "Operates well in a matrixed structure",
+      "kind": "required",
+      "met": "yes",
+      "note": "first employee at PranaX; EVCore client work"
+    },
+    {
+      "text": "Project management experience",
+      "kind": "required",
+      "met": "yes",
+      "note": "cleanroom build-out; EVCore projects"
+    },
+    {
+      "text": "Knows single-use regulatory landscape (ISO, USP, extractables/leachables)",
+      "kind": "required",
+      "met": "partial",
+      "note": "ISO cleanroom + GMP; no E&L shown"
+    },
+    {
+      "text": "MS Office and CRM",
+      "kind": "required",
+      "met": "partial",
+      "note": "Office yes; no CRM"
+    },
+    {
+      "text": "Master's degree",
+      "kind": "preferred",
+      "met": "yes",
+      "note": "MBA"
+    }
+  ],
+  "fitParts": {
+    "required": 36,
+    "experience": 10,
+    "preferred": 15,
+    "direction": 16
+  },
+  "verified": "full",
+  "reqSource": "Indeed posting",
+  "gate": null,
+  "scoredAt": "2026-09-26"
 }

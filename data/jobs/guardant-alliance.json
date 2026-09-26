@@ -9,15 +9,44 @@
   "url": "https://www.ziprecruiter.com/job-redirect?match_token=CpYBChZITGMtSGYzR1hpVFRMRDc1Und0cW5BEiQwMWEwZGRmYS1kNThjLTdiNzEtOTQwYS1jZjQxODc0NDZkYzUaUkFBRkgySHRtWHZiVmdrUU90MVRqWXh2cW9xdTZsN1JKdW9UbmRwaUNKZE92dUw1U2N2d2ZJbUtCdExFbWJuTXhtcnZZQ1BLd01aQVJXcVE2M0Egya0FEAEYya0F&tsid=100000502",
   "source": "ZipRecruiter",
   "postedDate": "2026-09-26",
-  "fit": 68,
-  "fitWhy": "Partner-facing business role in oncology. Your oncology publications and MBA give you credibility with biopharma partners.",
-  "gaps": "'Senior' usually expects prior alliance or partnering experience. Guardant is diagnostics, not cell therapy.",
-  "status": "new",
+  "fit": 22,
+  "fitWhy": "Oncology partnering role that uses the MBA, but it expects 5–7 years in partnering. Web sources list pay at $167k–$230k.",
+  "gaps": "Experience gap is large; revisit if an Alliance Manager (non-senior) opening appears.",
+  "status": "passed",
   "history": [
     {
       "date": "2026-09-26",
       "status": "new"
+    },
+    {
+      "date": "2026-09-26",
+      "status": "passed"
     }
   ],
-  "foundDate": "2026-09-26"
+  "foundDate": "2026-09-26",
+  "reqs": [
+    {
+      "text": "5–7 years of relevant experience (alliance or partnering)",
+      "kind": "required",
+      "met": "no",
+      "note": "~2.5 industry years; no alliance work"
+    },
+    {
+      "text": "Full requirements",
+      "kind": "required",
+      "met": "unknown",
+      "note": "posting not readable"
+    }
+  ],
+  "fitParts": {
+    "required": 0,
+    "experience": 2,
+    "preferred": 0,
+    "direction": 20
+  },
+  "verified": "none",
+  "reqSource": "only experience level and salary found via web search",
+  "gate": null,
+  "scoredAt": "2026-09-26",
+  "passReason": "Scored 22, below the 70 cutoff."
 }

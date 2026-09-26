@@ -9,15 +9,54 @@
   "url": "https://www.ziprecruiter.com/job-redirect?match_token=CqABChZ2cmlMWGhOeHZVcEZaMGJ3MVhCME5BEiQwMWEwZGRmYS03ODM4LTdkYTUtOWRiNy0wYWJmZmY1NmJmNDcaXEFBRkFVTlZmMFhNbWhWdDBCV3huREIyQVIxcHdmbmdXWjhEQWdOb0NnbU5rYUQxMUtpZHJmQVhGVU4zM0JHZjExQ20xdEtDa1BLSHU0Zi1FMk8ya01XeXR2U25qIMmtBRABGMmtBQ%3D%3D&tsid=100000502",
   "source": "ZipRecruiter",
   "postedDate": "2026-09-17",
-  "fit": 76,
-  "fitWhy": "Technical consulting to pharma and biotech corporate accounts. ISO cleanroom operations and aseptic practice are core to your CV, and the role is account-facing.",
-  "gaps": "Likely heavy travel. Ecolab's life sciences business centers on contamination control and cleaning chemistry, so lean on aseptic and cleanroom experience.",
-  "status": "new",
+  "fit": 28,
+  "fitWhy": "Cleanroom and aseptic background is relevant, but this is a senior microbiology consulting role.",
+  "gaps": "",
+  "status": "passed",
   "history": [
     {
       "date": "2026-09-26",
       "status": "new"
+    },
+    {
+      "date": "2026-09-26",
+      "status": "passed"
     }
   ],
-  "foundDate": "2026-09-26"
+  "foundDate": "2026-09-26",
+  "reqs": [
+    {
+      "text": "BSc in life sciences, preferably microbiology",
+      "kind": "required",
+      "met": "partial",
+      "note": "Biochemistry"
+    },
+    {
+      "text": "Minimum 10 years of practical microbiology experience",
+      "kind": "required",
+      "met": "no"
+    },
+    {
+      "text": "Cleaning / disinfection validation and GMP expertise",
+      "kind": "required",
+      "met": "partial",
+      "note": "GMP and aseptic yes; no cleaning validation"
+    },
+    {
+      "text": "Frequent international travel; conversational Spanish",
+      "kind": "required",
+      "met": "unknown"
+    }
+  ],
+  "fitParts": {
+    "required": 12,
+    "experience": 0,
+    "preferred": 0,
+    "direction": 16
+  },
+  "verified": "partial",
+  "reqSource": "Ecolab careers listing via web search",
+  "gate": "Requires at least 10 years of practical microbiology experience.",
+  "scoredAt": "2026-09-26",
+  "passReason": "Failed a hard requirement."
 }

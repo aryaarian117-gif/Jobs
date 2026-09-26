@@ -9,15 +9,54 @@
   "url": "https://www.ziprecruiter.com/job-redirect?match_token=CpYBChYtcXhGS2dtZkh0WTRaellCQ1hfUXl3EiQwMWEwZGRmYS1jMjNkLTczOTctODI5Yi1hYjAwMDg1OGNiZTUaUkFBR2tqTVlBN1dMSXdUZFJuX2syVmRCMXBKTEI2XzhybXNNSUl2NXRvelU1bzc3SnV2cENOQS03cDZHNFd0SlZzc25pVXpEN3dITXNrOXVTLWcgya0FEAEYya0F&tsid=100000502",
   "source": "ZipRecruiter",
   "postedDate": "2026-09-18",
-  "fit": 63,
-  "fitWhy": "Gene therapy MS&T, a direct match for your MSAT role.",
-  "gaps": "Technical track, and the top of the range is only $105k. Confirm remote works from Houston.",
-  "status": "new",
+  "fit": 41,
+  "fitWhy": "Direct MS&T match, but on the technical track and the posting could not be read.",
+  "gaps": "Capped at 60 because the requirements were not verified. Listed in Baltimore, MD, with remote optional.",
+  "status": "passed",
   "history": [
     {
       "date": "2026-09-26",
       "status": "new"
+    },
+    {
+      "date": "2026-09-26",
+      "status": "passed"
     }
   ],
-  "foundDate": "2026-09-26"
+  "foundDate": "2026-09-26",
+  "reqs": [
+    {
+      "text": "3–5 years in biopharma manufacturing, MS&T or CMC",
+      "kind": "required",
+      "met": "partial",
+      "note": "~2.5 industry years"
+    },
+    {
+      "text": "cGMP manufacturing with tech transfer and process support",
+      "kind": "required",
+      "met": "yes"
+    },
+    {
+      "text": "Root cause analysis; project management tools",
+      "kind": "required",
+      "met": "partial"
+    },
+    {
+      "text": "Full requirements",
+      "kind": "required",
+      "met": "unknown",
+      "note": "posting not readable"
+    }
+  ],
+  "fitParts": {
+    "required": 25,
+    "experience": 10,
+    "preferred": 0,
+    "direction": 6
+  },
+  "verified": "none",
+  "reqSource": "Taysha posting not readable; typical requirements for this title",
+  "gate": null,
+  "scoredAt": "2026-09-26",
+  "passReason": "Scored 41, below the 70 cutoff."
 }

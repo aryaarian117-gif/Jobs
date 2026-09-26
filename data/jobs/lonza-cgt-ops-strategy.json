@@ -9,9 +9,9 @@
   "url": "https://www.ziprecruiter.com/job-redirect?match_token=CpwBChZUejNBSHRHdkFuMURhYS1XTTFQQ1Z3EiQwMWEwZGRmYS03MDA2LTc1YzAtOWY0MS0xMjhmMTM2MTVlZDYaWEFBR3NSZWRsam9TMXFnNHE0bUhwSDJoN2VycmRBZUlEc3JyNHlzaG9nSThuLWR6eUJVV0pCSmEycm9fbUxjQjZWMmo3cTluYkxickhIa3VXbXJEMlhfQlYgya0FEAEYya0F&tsid=100000502",
   "source": "ZipRecruiter",
   "postedDate": "2026-09-17",
-  "fit": 86,
-  "fitWhy": "Operations strategy and PMO for cell and gene therapy at a CDMO, based in Houston. It sits exactly where your GMP manufacturing build-out and your MBA overlap.",
-  "gaps": "'Global Head' suggests more people leadership than your CV shows, yet the listed range suggests it may be leveled lower than the title. Ask the recruiter about level and base before investing heavily.",
+  "fit": 45,
+  "fitWhy": "The subject matter fits (CGT operations strategy), but the level does not.",
+  "gaps": "Consider Lonza's more junior CGT operations, PMO or MSAT roles in Houston instead.",
   "status": "drafting",
   "history": [
     {
@@ -33,5 +33,40 @@
     "coverLetter": "Dear Lonza Hiring Team,\n\nI am applying for the Global Head of CGT Operations Strategy & PMO position. My career has been spent where cell-based therapeutics move from the lab into GMP manufacturing, and I recently completed my MBA at Rice University to take on the strategy and portfolio side of that work.\n\nAs the first employee at PranaX, I led the end-to-end build-out and operation of an ISO-certified cleanroom for GMP exosome manufacturing. I ran technology transfer, process development and scale-up while leading the systems around them, from equipment procurement and qualification oversight to SOPs, batch-record development, QC, and regulatory alignment. Building that from nothing taught me how operational decisions trade off against timelines, budget and compliance, which is the daily work of a CGT PMO.\n\nAt MD Anderson, I now lead development of operational infrastructure for the CPRIT Texas EVCore, managing custom client projects from sample intake through final reporting. Earlier, as a research scientist in the Kalluri Laboratory, I worked on engineered extracellular vesicles, cancer immunotherapy and GLP-ready MSC-derived EVs, contributing to six peer-reviewed publications including Cancer Cell and Nature Communications.\n\nLonza's cell and gene therapy business needs operations strategy that is grounded in how manufacturing actually runs. I can bring hands-on GMP credibility with site teams, and the business training to build the governance, metrics and portfolio views that leadership relies on. I would welcome a conversation about the scope of this role and how I could contribute from Houston.\n\nSincerely,\nArya Arian",
     "updatedAt": "2026-09-26",
     "by": "Claude"
-  }
+  },
+  "reqs": [
+    {
+      "text": "Strategic global leader who drives operational excellence and transformation across a multi-site CGT network",
+      "kind": "required",
+      "met": "no",
+      "note": "senior multi-site leadership not on CV"
+    },
+    {
+      "text": "Strong business acumen; translates enterprise strategy into plans",
+      "kind": "required",
+      "met": "partial",
+      "note": "Rice MBA"
+    },
+    {
+      "text": "Leads organizational change across sites",
+      "kind": "required",
+      "met": "no"
+    },
+    {
+      "text": "Cell & gene therapy GMP operations knowledge",
+      "kind": "required",
+      "met": "yes",
+      "note": "PranaX exosome GMP manufacturing"
+    }
+  ],
+  "fitParts": {
+    "required": 19,
+    "experience": 2,
+    "preferred": 8,
+    "direction": 16
+  },
+  "verified": "partial",
+  "reqSource": "role summary via web search; full requirements not readable",
+  "gate": "'Global Head' is above your Associate Director ceiling, and the role leads Lonza's whole global CGT network. Web sources estimate pay at $164k–$228k, which also points to a senior level.",
+  "scoredAt": "2026-09-26"
 }

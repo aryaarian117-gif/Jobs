@@ -9,15 +9,69 @@
   "url": "https://www.ziprecruiter.com/job-redirect?match_token=CpQBChY3UTU3Wng3NV9BaXl2Y1JpVUZ5OVp3EiQwMWEwZGRmYS03MDA2LTc1YzItODM3NS1lZDIxODc4NDM1ZWMaUEFBRVhBdnZSaWUzMFhpT3pGcXhmSXl1bFNjeC00eFRNY1F2MnNtLXR0TW90VjhLcS1SZUgxRkdxcHotejRmdW1JOVBjZUNJbDV2Z1ZycDFFIMmtBRABGMmtBQ%3D%3D&tsid=100000502",
   "source": "ZipRecruiter",
   "postedDate": "2026-09-17",
-  "fit": 74,
-  "fitWhy": "IQ/OQ/PQ, SOPs and batch records from PranaX map directly to process validation, and the base meets your floor.",
-  "gaps": "Engineering title on the technical track, so it doesn't move you toward business. Good as a strong fallback.",
-  "status": "new",
+  "fit": 41,
+  "fitWhy": "GMP and deviation work carry over, but this is a hands-on validation engineering role.",
+  "gaps": "Needs hands-on validation and fill-finish experience, and it's on the technical track.",
+  "status": "passed",
   "history": [
     {
       "date": "2026-09-26",
       "status": "new"
+    },
+    {
+      "date": "2026-09-26",
+      "status": "passed"
     }
   ],
-  "foundDate": "2026-09-26"
+  "foundDate": "2026-09-26",
+  "reqs": [
+    {
+      "text": "Knowledge of global regulations and cGMP for pharma manufacturing",
+      "kind": "required",
+      "met": "yes"
+    },
+    {
+      "text": "Validation procedures and practices",
+      "kind": "required",
+      "met": "partial",
+      "note": "oversaw IQ/OQ/PQ; didn't execute"
+    },
+    {
+      "text": "Technical writing: deviations, root cause analysis, risk assessments",
+      "kind": "required",
+      "met": "yes",
+      "note": "deviation/CAPA support"
+    },
+    {
+      "text": "Statistical analysis",
+      "kind": "required",
+      "met": "partial"
+    },
+    {
+      "text": "Sterile fill-finish processes in a CDMO",
+      "kind": "required",
+      "met": "no"
+    },
+    {
+      "text": "Packaging and shipping validation",
+      "kind": "preferred",
+      "met": "no"
+    },
+    {
+      "text": "CDMO experience",
+      "kind": "preferred",
+      "met": "no"
+    }
+  ],
+  "fitParts": {
+    "required": 30,
+    "experience": 5,
+    "preferred": 0,
+    "direction": 6
+  },
+  "verified": "partial",
+  "reqSource": "Danaher posting summary via web search",
+  "gate": null,
+  "scoredAt": "2026-09-26",
+  "passReason": "Scored 41, below the 70 cutoff."
 }

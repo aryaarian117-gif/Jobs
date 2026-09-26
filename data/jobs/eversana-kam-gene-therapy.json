@@ -9,15 +9,57 @@
   "url": "https://www.ziprecruiter.com/job-redirect?match_token=CpQBChZvdU83STFfU1U3ZW9rUW1JNFFibFp3EiQwMWEwZGRmYS03ZmI4LTdiNWItOTEwNC00NTYwY2UwMmU4MGUaUEFBSF8wSWZIRXEwN3ZBNktaYkw0NkZZSmpPN1lxam5sSzlWV0Y3QlNzaHRBNERsNWpBeHlOWDhobHRPRWxWN2VvcmdtUXo2ak9sX2lYTTl3IMmtBRABGMmtBQ%3D%3D&tsid=100000502",
   "source": "ZipRecruiter",
   "postedDate": "2026-09-19",
-  "fit": 66,
-  "fitWhy": "Houston commercial role in gene therapy and immunology. Your MD Anderson network and immunology publications help with Texas Medical Center accounts.",
-  "gaps": "Field sales. The very wide range suggests commission or multiple levels, so confirm the base is at least $100k.",
-  "status": "new",
+  "fit": 35,
+  "fitWhy": "Your oncology and CGT knowledge is a plus, but the core requirements are sales experience you don't have.",
+  "gaps": "",
+  "status": "passed",
   "history": [
     {
       "date": "2026-09-26",
       "status": "new"
+    },
+    {
+      "date": "2026-09-26",
+      "status": "passed"
     }
   ],
-  "foundDate": "2026-09-26"
+  "foundDate": "2026-09-26",
+  "reqs": [
+    {
+      "text": "5+ years with IDNs, academic medical centers, buy-and-bill, P&T, 340B",
+      "kind": "required",
+      "met": "no"
+    },
+    {
+      "text": "Track record selling in specialty or rare disease",
+      "kind": "required",
+      "met": "no"
+    },
+    {
+      "text": "Understands hospital formulary decision-making",
+      "kind": "required",
+      "met": "no"
+    },
+    {
+      "text": "Hits sales targets; CRM proficiency",
+      "kind": "required",
+      "met": "no"
+    },
+    {
+      "text": "Oncology and cell & gene therapy knowledge",
+      "kind": "preferred",
+      "met": "yes"
+    }
+  ],
+  "fitParts": {
+    "required": 0,
+    "experience": 0,
+    "preferred": 15,
+    "direction": 20
+  },
+  "verified": "partial",
+  "reqSource": "EVERSANA listing via web search",
+  "gate": "Commission-driven field sales role requiring 5+ years of hospital account selling.",
+  "scoredAt": "2026-09-26",
+  "passReason": "Failed a hard requirement."
 }

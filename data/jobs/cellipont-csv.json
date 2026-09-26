@@ -9,15 +9,58 @@
   "url": "https://www.ziprecruiter.com/job-redirect?match_token=CpMBChY1bm1vU3F1SjRPc3lwV1luMmNUSTV3EiQwMWEwZGRmYS03MDA2LTc1YzEtOTc5OS0yMTUzZjA1NTQ0NTYaT0FBSDdVLS1OMjc1NnVsSU14eTUzNzFDTDVHU01nRV9IaGdyQVZxTTg0cFFudEQ2ck1NTTExYlBjbkNtVHBsYTJYZXc2MW15NkEzczBJWEkgya0FEAEYya0F&tsid=100000502",
   "source": "ZipRecruiter",
   "postedDate": "2026-09-21",
-  "fit": 45,
-  "fitWhy": "Houston-area cell therapy CDMO. Mainly worth knowing for networking toward their business development or operations roles.",
-  "gaps": "Computer systems validation is an IT and quality specialty outside your core experience.",
-  "status": "new",
+  "fit": 49,
+  "fitWhy": "Houston-area cell therapy CDMO, but this is a computer systems validation specialty.",
+  "gaps": "Mainly useful as a networking contact at Cellipont.",
+  "status": "passed",
   "history": [
     {
       "date": "2026-09-26",
       "status": "new"
+    },
+    {
+      "date": "2026-09-26",
+      "status": "passed"
     }
   ],
-  "foundDate": "2026-09-26"
+  "foundDate": "2026-09-26",
+  "reqs": [
+    {
+      "text": "BS in a relevant field",
+      "kind": "required",
+      "met": "yes"
+    },
+    {
+      "text": "6+ years in biopharma or regulated pharma",
+      "kind": "required",
+      "met": "partial",
+      "note": "~2.5 industry years"
+    },
+    {
+      "text": "Risk-based validation and data integrity expertise",
+      "kind": "required",
+      "met": "partial"
+    },
+    {
+      "text": "Computerized system lifecycle management (CSV)",
+      "kind": "required",
+      "met": "no"
+    },
+    {
+      "text": "Cell therapy, gene therapy, biologics or aseptic manufacturing",
+      "kind": "preferred",
+      "met": "yes"
+    }
+  ],
+  "fitParts": {
+    "required": 25,
+    "experience": 3,
+    "preferred": 15,
+    "direction": 6
+  },
+  "verified": "partial",
+  "reqSource": "Cellipont listing via web search",
+  "gate": null,
+  "scoredAt": "2026-09-26",
+  "passReason": "Scored 49, below the 70 cutoff."
 }

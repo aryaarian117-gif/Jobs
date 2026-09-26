@@ -9,9 +9,9 @@
   "url": "https://www.ziprecruiter.com/job-redirect?match_token=CpYBChZxUHY0MGdMY05fLThsSnBuYk9WRlNnEiQwMWEwZGRmYS03ODM0LTdlZjMtYTk0Yy1jZTU3YjJmZTViZWYaUkFBRUk2c2hGTFprQTlNTVpyT2J4TVFBYVRIeXZJYTZ4S1dDZlhFQ0UxVFY1cElyZzFnenRVRm42MFBtbEFnY3dXQTY5YnVRZi1yVDJlSUJ2RXcgya0FEAEYya0F&tsid=100000502",
   "source": "ZipRecruiter",
   "postedDate": "2026-09-12",
-  "fit": 80,
-  "fitWhy": "Strategy and operations consulting for life sciences clients, fully above your floor. A Rice MBA plus hands-on GMP operations gives you credibility with manufacturing and quality clients.",
-  "gaps": "No prior consulting title. Show structured problem solving: the PranaX build-out and EVCore project scoping read well as client engagements.",
+  "fit": 75,
+  "fitWhy": "Consulting entry point where your experience level matches what BIP asks for, and fully above your salary floor.",
+  "gaps": "Scored from BIP's similar postings, so it is capped at 75 until you confirm the US requirements. Check for any language requirement.",
   "status": "new",
   "history": [
     {
@@ -19,5 +19,56 @@
       "status": "new"
     }
   ],
-  "foundDate": "2026-09-26"
+  "foundDate": "2026-09-26",
+  "reqs": [
+    {
+      "text": "1–2 years in business consulting or a similar role, including project management",
+      "kind": "required",
+      "met": "partial",
+      "note": "project management yes; no consulting title"
+    },
+    {
+      "text": "General knowledge of the life sciences sector",
+      "kind": "required",
+      "met": "yes"
+    },
+    {
+      "text": "University degree",
+      "kind": "required",
+      "met": "yes",
+      "note": "BS + MBA"
+    },
+    {
+      "text": "Analytical and problem-solving skills",
+      "kind": "required",
+      "met": "yes"
+    },
+    {
+      "text": "Communicates with senior client stakeholders",
+      "kind": "required",
+      "met": "yes",
+      "note": "EVCore investigators and clients"
+    },
+    {
+      "text": "Proactive; continuous-improvement mindset",
+      "kind": "required",
+      "met": "yes"
+    },
+    {
+      "text": "Additional languages",
+      "kind": "preferred",
+      "met": "unknown",
+      "note": "BIP's Spain postings ask for Spanish; check the US posting"
+    }
+  ],
+  "fitParts": {
+    "required": 46,
+    "experience": 15,
+    "preferred": 8,
+    "direction": 20
+  },
+  "verified": "partial",
+  "reqSource": "BIP's matching Life Sciences consultant postings; US posting itself not readable",
+  "gate": null,
+  "scoredAt": "2026-09-26"
 }

@@ -8,7 +8,7 @@ Private job-search tracker for a biotech operations → business career move.
 
 Daily search sources: Indeed, ZipRecruiter, company career sites (Greenhouse, Lever, SmartRecruiters, Workable, Workday; needs those hosts allowed in the environment network settings), Gmail job-alert emails incl. Rice Business 12twenty (forwarded to Gmail), Gmail application-status updates, and targeted web search. Source status is shown on the Add & sources tab (`data/sources.json`).
 
-Search criteria: Houston, TX or remote · base salary ≥ $100k (flag ranges within 5%) · business roles, ideally where they meet GMP manufacturing / MSAT.
+Search criteria: Houston, TX (city) or fully remote US only · base salary ≥ $100k (flag ranges within 5%) · business roles, ideally where they meet GMP manufacturing / MSAT.
 
 Fit (0–100): hard gates first (location, pay, degree, seniority ≤ Associate Director, no commission sales, years), then Required qualifications 50 · Experience 15 · Preferred 15 · Direction 20. Capped at 75 when requirements come from a summary, 60 when unverified. Matches cutoff: 70.
 

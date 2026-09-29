@@ -66,6 +66,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
 .seg button{border:0;background:none;padding:6px 12px;cursor:pointer;font-size:13px;color:var(--muted)}
 .seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.refresh-note{font-size:13px;color:var(--muted);flex-basis:100%}
+.refresh-note.err{color:var(--bad)}
 .toolbar .hint{font-size:13px;color:var(--muted);margin-left:auto}
 
 /* chips */
@@ -257,7 +259,7 @@ form.add .full{grid-column:1/-1}
     return c;
   }
 
-  const S = { jobs: [], profile: null, watch: null, sources: null, tab: "matches", track: "All", open: new Set(), loaded: false };
+  const S = { jobs: [], profile: null, watch: null, sources: null, refresh: {canFire: false, busy: false, msg: "", err: false}, tab: "matches", track: "All", open: new Set(), loaded: false };
   let db = null, sample = null, pendingRender = false;
 
   try { const t = localStorage.getItem("jd.tab"); if (["matches","leads","apply","passed","add"].includes(t)) S.tab = t; } catch(e) {}
@@ -346,7 +348,8 @@ form.add .full{grid-column:1/-1}
     list.sort((a,b) => (b.status==="saved") - (a.status==="saved") || (b.fit ?? -1) - (a.fit ?? -1));
     const seg = TRACKS.map(t => `<button data-act="track" data-v="${t}" aria-pressed="${S.track===t}">${t}</button>`).join("");
     let html = `<div class="toolbar"><div class="seg" role="group" aria-label="Track">${seg}</div>
-      <span class="hint">Sorted by fit · cutoff ${CUTOFF}</span></div>`;
+      <span class="hint">Sorted by fit · cutoff ${CUTOFF}</span>
+      ${refreshControl()}</div>`;
     if (!list.length) return html + `<div class="empty">No matches in this view. Ask Claude to run a new search, or add one yourself.</div>`;
     html += '<div class="list">' + list.map(card).join("") + "</div>";
     return html;
@@ -376,6 +379,49 @@ form.add .full{grid-column:1/-1}
         </div>
       </div>
     </article>`;
+  }
+
+  const TRIGGER_ID = "trig_01Pr3zRJ42jSwrKMnkhZnpvF", REMOTE = "Claude Code Remote", COOLDOWN_MIN = 30;
+  let mcp = null;
+  function lastRefresh(){ return S.sources && S.sources.lastRefresh ? S.sources.lastRefresh : null; }
+  function refreshControl(){
+    if (!S.refresh.canFire) return "";
+    const last = lastRefresh();
+    const mins = last && last.requestedAt ? (Date.now() - Date.parse(last.requestedAt)) / 60000 : Infinity;
+    const cooling = mins < COOLDOWN_MIN;
+    const t = last && last.requestedAt ? new Date(last.requestedAt).toLocaleTimeString([], {hour: "numeric", minute: "2-digit"}) : "";
+    const note = S.refresh.msg ? S.refresh.msg
+      : cooling ? `Search started at ${t}. New matches appear here on their own when it finishes, usually within 15–30 minutes.`
+      : (S.sources && S.sources.updatedAt ? `Last search ${fmtDate(S.sources.updatedAt)}.` : "");
+    return `<button class="btn" data-act="refresh" ${S.refresh.busy || cooling ? "disabled" : ""}>${S.refresh.busy ? "Starting…" : "↻ Refresh matches"}</button>
+      ${note ? `<span class="refresh-note${S.refresh.err ? " err" : ""}" role="status">${esc(note)}</span>` : ""}`;
+  }
+  const REFRESH_ERR = {
+    needs_reauth: "Reconnect Claude Code Remote in claude.ai Settings → Connectors, then try again.",
+    server_not_connected: "Add the Claude Code Remote connector in claude.ai Settings → Connectors to refresh from here.",
+    selection_required: "Choose which Claude Code Remote connector to use when claude.ai asks, then try again.",
+    not_in_manifest: "Refreshing was turned off for this page. Allow Claude Code Remote for it to use this button.",
+    blocked_by_policy: "Your organization blocks starting searches from this page.",
+    approval_required: "Your organization requires approval for this action, which pages can't request yet.",
+    server_unavailable: "Couldn't reach Claude right now. It may still have started; wait a few minutes before trying again.",
+    tool_error: "The search couldn't start: ",
+  };
+  async function fireRefresh(){
+    if (!mcp || S.refresh.busy) return;
+    S.refresh = {...S.refresh, busy: true, msg: "", err: false}; render();
+    try {
+      await mcp.callTool(REMOTE, "fire_trigger", {trigger_id: TRIGGER_ID}, {cache: false});
+      S.refresh = {...S.refresh, busy: false, msg: "", err: false};
+      if (db) { try { await db.doc("sources/status").update({lastRefresh: {requestedAt: new Date().toISOString(), by: "button"}}); } catch(e) {} }
+      toast("Search started");
+    } catch(e) {
+      const code = e && e.code;
+      let msg = REFRESH_ERR[code] || "The search couldn't start. Try again in a few minutes.";
+      if (code === "tool_error") msg += (e.message || "unknown error");
+      if (["not_granted","capability_disabled","capability_removed"].includes(code)) { S.refresh.canFire = false; msg = ""; }
+      S.refresh = {...S.refresh, busy: false, msg, err: !!msg};
+    }
+    render();
   }
 
   function renderLeads(jobs){
@@ -507,7 +553,8 @@ form.add .full{grid-column:1/-1}
   $("#view").addEventListener("click", async e => {
     const b = e.target.closest("[data-act]"); if (!b || b.tagName === "SELECT" || b.tagName === "INPUT" || b.tagName === "TEXTAREA") return;
     const act = b.dataset.act, j = b.dataset.id ? byId(b.dataset.id) : null;
-    if (act === "track") { S.track = b.dataset.v; render(); }
+    if (act === "refresh") { fireRefresh(); }
+    else if (act === "track") { S.track = b.dataset.v; render(); }
     else if (act === "status" && j) { await setStatus(j, b.dataset.v); }
     else if (act === "start" && j) { S.open.add(j.id); if (await setStatus(j, "drafting")) { S.tab = "apply"; render(); } }
     else if (act === "toggle" && j) { S.open.has(j.id) ? S.open.delete(j.id) : S.open.add(j.id); render(); }
@@ -589,6 +636,7 @@ form.add .full{grid-column:1/-1}
 
   /* ---------- boot ---------- */
   render();
+  setInterval(() => { if (S.tab === "matches" && S.loaded) schedule(); }, 60000);
   (async () => {
     db = await window.claude?.use?.("db") ?? null;
     if (!db) { S.loaded = true; notice("Your saved jobs can't load in this view. Open the tracker in Claude to see them."); render(); return; }
@@ -597,8 +645,18 @@ form.add .full{grid-column:1/-1}
       S.loaded = true; schedule();
     }, () => { S.loaded = true; notice("Live updates stopped. Reload the page to reconnect."); render(); });
     db.doc("profile/main").onSnapshot(s => { S.profile = s.exists ? s.data() : null; }, () => {});
-    db.doc("sources/status").onSnapshot(s => { S.sources = s.exists ? s.data() : null; if (S.tab === "add") schedule(); }, () => {});
+    db.doc("sources/status").onSnapshot(s => { S.sources = s.exists ? s.data() : null; if (S.tab === "add" || S.tab === "matches") schedule(); }, () => {});
     db.doc("sources/watchlist").onSnapshot(s => { S.watch = s.exists ? s.data() : null; if (S.tab === "add") schedule(); }, () => {});
+  })();
+  (async () => {
+    mcp = await window.claude?.use?.("mcp") ?? null;
+    if (!mcp) return;
+    try {
+      const r = await mcp.listTools(REMOTE);
+      const srv = (r.servers || []).find(x => x.server === REMOTE);
+      S.refresh.canFire = !!(srv && (srv.tools || []).some(t => t.name === "fire_trigger"));
+    } catch(e) { S.refresh.canFire = false; }
+    if (S.loaded) schedule();
   })();
   (async () => {
     sample = await window.claude?.use?.("sample") ?? null;

@@ -110,6 +110,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 .reqs .m-yes{color:var(--good)} .reqs .m-partial{color:var(--warn)} .reqs .m-no{color:var(--bad)} .reqs .m-unknown{color:var(--muted)}
 .reqs .kind{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-left:6px}
 .reqs .h{grid-column:1/-1;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.kit{border:1px solid var(--good);background:var(--good-soft);border-radius:8px;padding:12px 14px;display:grid;gap:8px;margin-bottom:14px}
+.kit h4{color:var(--good)!important;margin:0!important}
+.kit ol{margin:0;padding-left:20px;font-size:14px;display:grid;gap:4px}
 .gatebox{margin-top:10px;padding:8px 12px;border-radius:6px;background:var(--bad-soft);color:var(--bad);font-size:13px;max-width:72ch}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .btn{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:6px 12px;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
@@ -259,7 +262,7 @@ form.add .full{grid-column:1/-1}
       <ul class="reqs">${list}${j.verified ? `<li class="h">${esc(VERIFIED[j.verified] || "")}${j.reqSource ? " · " + esc(j.reqSource) : ""}</li>` : ""}</ul></details>`;
   }
   function fitChips(j){
-    let c = "";
+    let c = (j.kit && j.kit.status === "ready" && !["applied","interview","offer","rejected","withdrawn","passed"].includes(j.status)) ? `<span class="chip s-meets">Apply kit ready</span>` : "";
     if (j.verified && j.verified !== "full") c += `<span class="chip s-near">${esc(VERIFIED[j.verified])}</span>`;
     if (j.gate) c += `<span class="chip s-below">Fails a hard requirement</span>`;
     else if (j.fit != null && j.fit < CUTOFF) c += `<span class="chip s-below">Below ${CUTOFF} cutoff</span>`;
@@ -379,7 +382,7 @@ form.add .full{grid-column:1/-1}
         ${j.gaps ? `<p class="why gap"><b>Watch for.</b> ${esc(j.gaps)}</p>` : ""}
         ${scoreBlock(j)}
         ${preview ? "" : `<div class="actions">
-          <button class="btn primary" data-act="start" data-id="${esc(j.id)}">Start application</button>
+          <button class="btn primary" data-act="start" data-id="${esc(j.id)}">${j.kit && j.kit.status === "ready" ? "Open apply kit" : "Start application"}</button>
           ${j.url ? `<a class="btn" href="${esc(j.url)}" target="_blank" rel="noopener">Open posting ↗</a>` : ""}
           ${j.status === "lead" ? `<button class="btn" data-act="status" data-v="new" data-id="${esc(j.id)}">Promote to matches</button>` : ""}
           ${j.status === "saved" ? `<button class="btn" data-act="status" data-v="new" data-id="${esc(j.id)}">Unsave</button>` : j.status === "new" ? `<button class="btn" data-act="status" data-v="saved" data-id="${esc(j.id)}">Save</button>` : ""}
@@ -480,6 +483,12 @@ form.add .full{grid-column:1/-1}
       </div>
       ${open ? `<div class="app-body">
         <div>
+          ${j.kit && j.kit.status === "ready" ? `<div class="kit"><h4>Apply kit</h4><ol>
+            <li><a href="${esc(j.kit.canvaEditUrl)}" target="_blank" rel="noopener">Open your tailored resume in Canva ↗</a> <span class="small">(Share → Download → PDF)</span></li>
+            <li>Copy the cover letter below</li>
+            <li>${j.url ? `<a href="${esc(j.url)}" target="_blank" rel="noopener">Open the posting and apply ↗</a>` : "Open the posting and apply"}</li>
+            <li>${j.status === "applied" ? "Applied ✓" : `<button class="btn primary" data-act="status" data-v="applied" data-id="${esc(j.id)}">Mark applied</button>`}</li></ol>
+            <span class="small">${esc(j.kit.resumeName || "")} · prepared ${esc(fmtDate(j.kit.preparedAt))}</span></div>` : ""}
           <h4><span>Cover letter</span><span class="small" style="text-transform:none;letter-spacing:0">${draftMeta}</span></h4>
           <textarea class="letter" id="cl-${esc(j.id)}" data-act="letter" data-id="${esc(j.id)}" placeholder="No draft yet. Use “Draft with Claude”, or ask Claude in chat to draft it.">${esc(letter)}</textarea>
           <div class="row" style="margin-top:8px">

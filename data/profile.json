@@ -1,6 +1,6 @@
 {
   "name": "Arya Arian",
-  "updatedAt": "2026-09-29",
+  "updatedAt": "2026-10-04",
   "criteria": {
     "locations": [
       "Houston, TX",
@@ -24,7 +24,36 @@
     ],
     "fitCutoff": 70,
     "rubric": "Hard gates first (location, base >= $95k or unposted, required degree/license, seniority above AD, commission sales, years far beyond). Then score: Required qualifications 50 (each: yes 1, partial 0.5, no/unknown 0; 50 x share), Experience level 15, Preferred qualifications 15, Direction 20 (Business 20, Intersection 16, Technical 6). Cap at 75 if requirements come from a summary or similar posting, 60 if not verified. Only add jobs scoring 70+.",
-    "locationRule": "Only jobs located in Houston, TX (on-site or hybrid) or fully remote in the US. Drop jobs based in other cities or suburbs (e.g. Spring, The Woodlands, Deer Park, Pearland), hybrid or on-site roles elsewhere, and field or territory roles covering other regions. 'Remote optional' counts as remote only if the posting allows working from anywhere in the US."
+    "locationRule": "Only jobs located in Houston, TX (on-site or hybrid) or fully remote in the US. Drop jobs based in other cities or suburbs (e.g. Spring, The Woodlands, Deer Park, Pearland), hybrid or on-site roles elsewhere, and field or territory roles covering other regions. 'Remote optional' counts as remote only if the posting allows working from anywhere in the US.",
+    "targetTitles": {
+      "tier1": [
+        "Technical Sales Specialist (bioprocess / cell and gene therapy)",
+        "Field Application Scientist / Specialist (cell therapy, single-use, flow cytometry, NTA)",
+        "Market Development Manager / Associate",
+        "Product Manager / Associate Product Manager (bioprocess, cell therapy tools, EV tools)",
+        "Technical Account Manager / Key Account Manager, Biopharma",
+        "Client Services / Customer Success Manager (CDMO, CRO)"
+      ],
+      "tier2": [
+        "Business Development Manager / Associate (CDMO, CRO, cell therapy)",
+        "Program / Project Manager (CMC, cell and gene therapy, manufacturing)",
+        "Life Sciences Consultant / Associate Consultant (CMC, operations)",
+        "Commercial / Business Operations Analyst or Manager (biotech)"
+      ],
+      "tier3": [
+        "MSAT Scientist II / Senior Scientist",
+        "Tech Transfer Specialist / Manager",
+        "Process Development Scientist (cell therapy, EV)",
+        "GMP Operations / Manufacturing Manager"
+      ],
+      "avoid": [
+        "Medical Science Liaison",
+        "Director or Head-of titles",
+        "Commission-heavy field sales",
+        "Computer systems validation",
+        "Clinical research associate"
+      ]
+    }
   },
   "summary": "Arya Arian. Houston, TX.\nEducation: MBA, Rice University (2026). BS Biochemistry, minor in Business, University of Texas at Austin (2020).\nExperience:\n- Research Investigator, CPRIT Texas EVCore, UT MD Anderson Cancer Center (June 2026 to present): leads development of the core's operational infrastructure; works with investigators and clients to refine project requirements and design fit-for-purpose study plans; runs assays under SOP-controlled, documented workflows; manages custom projects from sample intake through final reporting, including troubleshooting, data interpretation, quality review and communicating results.\n- MSAT Scientist and Lab Manager, PranaX (April 2024 to May 2026): first employee; led end-to-end build-out and operation of an ISO-certified cleanroom for GMP-compliant exosome manufacturing; directed technology transfer, process development, scale-up and MSAT activities supporting clinical manufacturing; was in charge of equipment procurement and IQ/OQ/PQ (oversaw qualification; did not personally execute it), aseptic operations, SOPs, batch-record development, QC and regulatory alignment.\n- Research Scientist, Kalluri Laboratory, Dept. of Cancer Biology, UT MD Anderson (March 2021 to March 2024): translational extracellular vesicle research in cancer immunology, vaccine development and regenerative medicine; EVs and immune-checkpoint blockade / T-cell activation in murine cancer models; single-cell RNA-seq after KRAS G12D inhibition in PDAC models; engineered EVs for combined mRNA and protein vaccine delivery; MSC-derived EVs for GLP-compliant in vivo studies.\nSkills: cGMP compliance, ISO-classified cleanroom operations, controlled documentation, batch record execution and review, deviation/CAPA support, assay development and validation, flow cytometry, NTA, cell sorting, qPCR, Western blot, scRNA-seq, FlowJo, Prism, Office.\nPublications: 6 peer-reviewed (Cancer Cell 2023, Nature Communications 2026, EMBO Journal 2026, ACS Nano 2025, Journal of Controlled Release 2024, Bioactive Materials 2024) and 1 bioRxiv preprint (2026).\nDirection: moving toward business roles (business development, strategy, operations/PMO, technical commercial roles) that use the MBA alongside GMP manufacturing experience."
 }

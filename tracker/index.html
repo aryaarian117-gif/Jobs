@@ -163,6 +163,12 @@ textarea.notes{min-height:90px}
 /* add form */
 form.add{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px;max-width:760px}
 form.add .full{grid-column:1/-1}
+.upload{margin-top:18px;max-width:820px;display:grid;gap:14px}
+.upload .panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;display:grid;gap:14px}
+.upload textarea.jd{min-height:220px}
+.upload .lead{margin:0;color:var(--muted);font-size:14px;max-width:72ch}
+.upload .status{font-size:13px;color:var(--muted)}
+.upload .status.err{color:var(--bad)}
 .watch{margin-top:28px;max-width:760px}
 .srcs{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
 .srcs li{display:grid;grid-template-columns:92px minmax(0,1fr);gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
@@ -210,6 +216,7 @@ form.add .full{grid-column:1/-1}
 
   <nav class="tabs" role="tablist">
     <button class="tab" role="tab" id="tab-matches" data-tab="matches">Matches<span class="n" id="n-matches"></span></button>
+    <button class="tab" role="tab" id="tab-upload" data-tab="upload">Upload job</button>
     <button class="tab" role="tab" id="tab-leads" data-tab="leads">Leads<span class="n" id="n-leads"></span></button>
     <button class="tab" role="tab" id="tab-apply" data-tab="apply">Apply<span class="n" id="n-apply"></span></button>
     <button class="tab" role="tab" id="tab-passed" data-tab="passed">Passed<span class="n" id="n-passed"></span></button>
@@ -259,12 +266,12 @@ form.add .full{grid-column:1/-1}
     return c;
   }
 
-  const S = { jobs: [], profile: null, watch: null, sources: null, refresh: {canFire: false, busy: false, msg: "", err: false}, tab: "matches", track: "All", open: new Set(), loaded: false };
+  const S = { upload: {url: "", text: "", image: null, busy: false, msg: "", err: false, preview: null, imagesOk: false}, jobs: [], profile: null, watch: null, sources: null, refresh: {canFire: false, busy: false, msg: "", err: false}, tab: "matches", track: "All", open: new Set(), loaded: false };
   let db = null, sample = null, pendingRender = false;
 
-  try { const t = localStorage.getItem("jd.tab"); if (["matches","leads","apply","passed","add"].includes(t)) S.tab = t; } catch(e) {}
+  try { const t = localStorage.getItem("jd.tab"); if (["matches","upload","leads","apply","passed","add"].includes(t)) S.tab = t; } catch(e) {}
   const hash = (location.hash || "").slice(1);
-  if (["matches","leads","apply","passed","add"].includes(hash)) S.tab = hash;
+  if (["matches","upload","leads","apply","passed","add"].includes(hash)) S.tab = hash;
 
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -339,6 +346,7 @@ form.add .full{grid-column:1/-1}
     else if (S.tab === "apply") v.innerHTML = renderApply(apply);
     else if (S.tab === "leads") v.innerHTML = renderLeads(jobs);
     else if (S.tab === "passed") v.innerHTML = renderPassed(jobs);
+    else if (S.tab === "upload") v.innerHTML = renderUpload();
     else v.innerHTML = renderAdd();
   }
 
@@ -351,10 +359,10 @@ form.add .full{grid-column:1/-1}
       <span class="hint">Sorted by fit · cutoff ${CUTOFF}</span>
       ${refreshControl()}</div>`;
     if (!list.length) return html + `<div class="empty">No matches in this view. Ask Claude to run a new search, or add one yourself.</div>`;
-    html += '<div class="list">' + list.map(card).join("") + "</div>";
+    html += '<div class="list">' + list.map(j => card(j)).join("") + "</div>";
     return html;
   }
-  function card(j){
+  function card(j, preview){
     const s = salary(j);
     const fit = j.fit == null ? "–" : j.fit;
     const title = j.url ? `<a href="${esc(j.url)}" target="_blank" rel="noopener">${esc(j.title)}</a>` : esc(j.title);
@@ -370,13 +378,13 @@ form.add .full{grid-column:1/-1}
         ${j.fitWhy ? `<p class="why"><b>Why it fits.</b> ${esc(j.fitWhy)}</p>` : ""}
         ${j.gaps ? `<p class="why gap"><b>Watch for.</b> ${esc(j.gaps)}</p>` : ""}
         ${scoreBlock(j)}
-        <div class="actions">
+        ${preview ? "" : `<div class="actions">
           <button class="btn primary" data-act="start" data-id="${esc(j.id)}">Start application</button>
           ${j.url ? `<a class="btn" href="${esc(j.url)}" target="_blank" rel="noopener">Open posting ↗</a>` : ""}
           ${j.status === "lead" ? `<button class="btn" data-act="status" data-v="new" data-id="${esc(j.id)}">Promote to matches</button>` : ""}
           ${j.status === "saved" ? `<button class="btn" data-act="status" data-v="new" data-id="${esc(j.id)}">Unsave</button>` : j.status === "new" ? `<button class="btn" data-act="status" data-v="saved" data-id="${esc(j.id)}">Save</button>` : ""}
           ${j.status === "passed" ? `<button class="btn" data-act="status" data-v="new" data-id="${esc(j.id)}">Restore to matches</button>` : `<button class="btn ghost" data-act="status" data-v="passed" data-id="${esc(j.id)}">Pass ✕</button>`}
-        </div>
+        </div>`}
       </div>
     </article>`;
   }
@@ -428,14 +436,14 @@ form.add .full{grid-column:1/-1}
     const list = jobs.filter(j => j.status === "lead").sort((a,b) => String(b.foundDate||"").localeCompare(String(a.foundDate||"")));
     const html = `<div class="toolbar"><span class="hint" style="margin-left:0">Promising postings found online whose full requirements couldn't be read. Open the posting, then promote it to Matches or pass.</span></div>`;
     if (!list.length) return html + `<div class="empty">No leads right now.</div>`;
-    return html + '<div class="list">' + list.map(card).join("") + "</div>";
+    return html + '<div class="list">' + list.map(j => card(j)).join("") + "</div>";
   }
 
   function renderPassed(jobs){
     const list = jobs.filter(j => j.status === "passed").sort((a,b) => (b.fit ?? -1) - (a.fit ?? -1));
     const html = `<div class="toolbar"><span class="hint" style="margin-left:0">Jobs you passed on, or that failed a hard requirement or scored under ${CUTOFF}. Restore one to put it back in Matches.</span></div>`;
     if (!list.length) return html + `<div class="empty">Nothing passed yet. Jobs you mark “Pass” land here.</div>`;
-    return html + '<div class="list">' + list.map(card).join("") + "</div>";
+    return html + '<div class="list">' + list.map(j => card(j)).join("") + "</div>";
   }
 
   function renderApply(list){
@@ -493,6 +501,102 @@ form.add .full{grid-column:1/-1}
         </div>
       </div>` : ""}
     </section>`;
+  }
+
+  function renderUpload(){
+    const u = S.upload;
+    if (!sample) return `<div class="upload"><div class="panel"><p class="lead">Reading a posting needs Claude, which isn't available in this view. Paste the link in your chat with Claude instead, or add it by hand on the Add &amp; sources tab.</p></div></div>`;
+    const canRead = !u.busy && (u.text.trim().length > 80 || u.image);
+    let html = `<div class="upload"><div class="panel">
+      <p class="lead">Paste a posting and Claude reads it, checks it against your hard requirements, and scores it with your rubric. Career sites can't be opened from this page, so copy the job description text from the posting.</p>
+      <div class="field"><label for="u-url">Posting link</label><input id="u-url" type="url" placeholder="https://" value="${esc(u.url)}" data-act="u-url"></div>
+      <div class="field"><label for="u-text">Job description</label><textarea id="u-text" class="jd" placeholder="Paste the full posting: title, location, pay, responsibilities, required and preferred qualifications." data-act="u-text">${esc(u.text)}</textarea></div>
+      ${u.imagesOk ? `<div class="field"><label for="u-img">Or attach a screenshot of the posting</label><input id="u-img" type="file" accept="image/png,image/jpeg,image/webp" data-act="u-img"><span class="small">${u.image ? esc(u.image.name) : "Optional"}</span></div>` : ""}
+      <div class="row"><button class="btn primary" data-act="u-read" ${canRead ? "" : "disabled"}>${u.busy ? "Reading…" : "Read & score"}</button>
+        ${u.busy ? `<button class="btn ghost" data-act="u-stop">Stop</button>` : ""}
+        ${u.text || u.url || u.preview ? `<button class="btn ghost" data-act="u-clear">Clear</button>` : ""}
+        <span class="status${u.err ? " err" : ""}" role="status">${esc(u.msg)}</span></div>
+    </div>`;
+    if (u.preview) {
+      const p = u.preview;
+      const dup = S.jobs.find(j => j.id === p.id || (String(j.company).toLowerCase() === String(p.company).toLowerCase() && String(j.title).toLowerCase() === String(p.title).toLowerCase()));
+      html += card(p, true) + `<div class="row">
+        ${dup ? `<span class="status err">Already in your tracker as “${esc(dup.title)}” (${esc(STATUS_LABEL[dup.status] || dup.status)}).</span>` : ""}
+        <button class="btn primary" data-act="u-add" data-v="new">Add to Matches</button>
+        <button class="btn" data-act="u-add" data-v="drafting">Add to Apply (drafting)</button>
+        <button class="btn" data-act="u-add" data-v="applied">I already applied</button>
+        <button class="btn ghost" data-act="u-add" data-v="passed">Add to Passed</button></div>`;
+    }
+    return html + "</div>";
+  }
+  let uploadCtl = null;
+  const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, Math.round(+n || 0)));
+  async function readUpload(){
+    const u = S.upload; if (!sample || u.busy) return;
+    const crit = (S.profile && S.profile.criteria) || {};
+    const prompt = [
+      "You score a job posting for one candidate. Reply with only one JSON object, no other text.",
+      "Use only facts from the candidate profile and the posting; never invent experience. Write no em dashes.",
+      "", "CANDIDATE PROFILE:", (S.profile && S.profile.summary) || "",
+      "", "CRITERIA:",
+      "Location rule: " + (crit.locationRule || "Houston, TX or fully remote US only."),
+      "Base salary floor: $100,000 (flag ranges within 5%).",
+      "Max seniority: " + (crit.maxSeniority || "Associate Director"),
+      "Experience: 2.5 industry years when the posting asks for industry, commercial, consulting or manufacturing experience; otherwise 5.5 total years.",
+      "Hard gates (any one fails the job): location rule, top of base range under $95k, title above Associate Director, requires PhD/MD/PharmD, commission-heavy field sales, required years far beyond the candidate's.",
+      "Scoring: required = round(50 x share of required qualifications met, yes=1 partial=0.5 no/unknown=0); experience 0-15; preferred 0-15; direction: Business 20, Intersection 16 (business plus technical), Technical 6.",
+      "Arya was in charge of equipment procurement and IQ/OQ/PQ at PranaX but did not personally perform qualification.",
+      "", "Today is " + today() + ".",
+      u.url ? "Posting URL: " + u.url : "",
+      "", "POSTING:", u.text.slice(0, 24000) || "(see attached screenshot)",
+      "", 'JSON shape: {"title":str,"company":str,"location":str,"mode":"Remote"|"Hybrid"|"On-site"|"Field","track":"Business"|"Intersection"|"Technical","salaryMin":num|null,"salaryMax":num|null,"postedDate":"YYYY-MM-DD"|null,"posting":"2-4 sentence summary","reqs":[{"text":str,"kind":"required"|"preferred","met":"yes"|"partial"|"no"|"unknown","note":str}],"fitParts":{"required":num,"experience":num,"preferred":num,"direction":num},"complete":true if the posting text includes its full qualifications else false,"gate":null or "one sentence naming the failed hard gate","fitWhy":"1-2 sentences addressed to Arya","gaps":"1-2 sentences on what to check or address","tailoring":["3 short resume tailoring tips"]}'
+    ].join("\n");
+    uploadCtl = new AbortController();
+    S.upload = {...u, busy: true, msg: "Claude is reading the posting. This takes 20 to 60 seconds.", err: false, preview: null}; render();
+    try {
+      const opts = {signal: uploadCtl.signal, modelTier: "default"};
+      if (u.image) opts.images = [u.image];
+      const r = await sample.json(prompt, opts);
+      if (!r || typeof r !== "object" || !r.title) throw {code: "invalid_json"};
+      const fp = r.fitParts || {};
+      const parts = {required: clamp(fp.required, 0, 50), experience: clamp(fp.experience, 0, 15), preferred: clamp(fp.preferred, 0, 15), direction: clamp(fp.direction, 0, 20)};
+      const verified = r.complete === false || (!u.text.trim() && u.image) ? "partial" : "full";
+      let fit = parts.required + parts.experience + parts.preferred + parts.direction;
+      if (verified === "partial") fit = Math.min(fit, 75);
+      const id = (String(r.company || "job") + "-" + String(r.title)).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
+      S.upload = {...S.upload, busy: false, msg: "", preview: {
+        id, title: String(r.title), company: String(r.company || ""), location: String(r.location || "Unspecified"),
+        mode: r.mode || null, track: ["Business","Intersection","Technical"].includes(r.track) ? r.track : "Intersection",
+        salaryMin: +r.salaryMin || null, salaryMax: +r.salaryMax || null, url: u.url.trim() || null, source: "Uploaded by you",
+        postedDate: r.postedDate || null, foundDate: today(), posting: r.posting || "",
+        reqs: Array.isArray(r.reqs) ? r.reqs.slice(0, 20).map(x => ({text: String(x.text || ""), kind: x.kind === "preferred" ? "preferred" : "required", met: ["yes","partial","no","unknown"].includes(x.met) ? x.met : "unknown", note: x.note ? String(x.note) : ""})) : [],
+        fitParts: parts, fit, verified, reqSource: verified === "full" ? "Posting text you pasted" : "Partial posting you pasted", gate: r.gate || null,
+        fitWhy: r.fitWhy || "", gaps: r.gaps || "", tailoring: Array.isArray(r.tailoring) ? r.tailoring.slice(0, 5).map(String) : [], scoredAt: today()
+      }};
+    } catch(e) {
+      const code = e && e.code;
+      const msg = code === "cancelled" ? "" : code === "not_granted" || code === "sampling_disabled" ? "Claude isn't allowed on this page. Allow it when asked, or paste the link in chat instead."
+        : code === "rate_limited" ? "Too many requests right now. Try again in a few minutes." : code === "prompt_too_large" ? "That posting is too long. Paste just the role, location, pay and qualifications."
+        : code === "image_rejected" ? "That screenshot couldn't be read. Try a PNG or JPG, or paste the text." : "Claude couldn't read that posting. Check the text and try again.";
+      S.upload = {...S.upload, busy: false, msg, err: !!msg};
+    }
+    uploadCtl = null; render();
+  }
+  async function addUpload(status){
+    const p = S.upload.preview; if (!p || !db) { if (!db) notice("Jobs can't be added in this view."); return; }
+    const doc = {...p, status, history: [{date: today(), status}]};
+    delete doc.id;
+    if (status === "applied") { doc.appliedDate = today(); doc.followUpDate = addDays(today(), 10); }
+    let id = p.id || ("job-" + Date.now().toString(36));
+    if (S.jobs.some(j => j.id === id)) id = id.slice(0, 52) + "-" + Date.now().toString(36).slice(-6);
+    try {
+      await db.doc("jobs/" + id).set(doc);
+      toast("Added to " + (STATUS_LABEL[status] || status));
+      S.upload = {...S.upload, url: "", text: "", image: null, preview: null, msg: "", err: false};
+      S.tab = status === "new" ? "matches" : status === "passed" ? "passed" : "apply";
+      if (status !== "new" && status !== "passed") S.open.add(id);
+      render();
+    } catch(e) { notice(e && e.code === "quota_exceeded" ? "The tracker is full. Delete old jobs before adding more." : "Couldn't add that job. Try again in a moment."); }
   }
 
   const WCATS = ["Houston area","EV / exosome","Bioprocess & tools","CDMO / cell & gene therapy","Consulting","Other"];
@@ -554,6 +658,10 @@ form.add .full{grid-column:1/-1}
     const b = e.target.closest("[data-act]"); if (!b || b.tagName === "SELECT" || b.tagName === "INPUT" || b.tagName === "TEXTAREA") return;
     const act = b.dataset.act, j = b.dataset.id ? byId(b.dataset.id) : null;
     if (act === "refresh") { fireRefresh(); }
+    else if (act === "u-read") { readUpload(); }
+    else if (act === "u-stop") { uploadCtl && uploadCtl.abort(); }
+    else if (act === "u-clear") { S.upload = {...S.upload, url: "", text: "", image: null, preview: null, msg: "", err: false}; render(); }
+    else if (act === "u-add") { addUpload(b.dataset.v); }
     else if (act === "track") { S.track = b.dataset.v; render(); }
     else if (act === "status" && j) { await setStatus(j, b.dataset.v); }
     else if (act === "start" && j) { S.open.add(j.id); if (await setStatus(j, "drafting")) { S.tab = "apply"; render(); } }
@@ -569,7 +677,18 @@ form.add .full{grid-column:1/-1}
     else if (act === "draft" && j) draftWithClaude(j, b);
     else if (act === "stop" && j) { draftCtl && draftCtl.abort(); }
   });
+  $("#view").addEventListener("input", e => {
+    const el = e.target, a = el.dataset && el.dataset.act;
+    if (a === "u-url") S.upload.url = el.value;
+    else if (a === "u-text") {
+      const before = S.upload.text.trim().length > 80;
+      S.upload.text = el.value;
+      const btn = document.querySelector('[data-act="u-read"]');
+      if (btn && !S.upload.busy && before !== (el.value.trim().length > 80)) btn.disabled = !(el.value.trim().length > 80 || S.upload.image);
+    }
+  });
   $("#view").addEventListener("change", async e => {
+    if (e.target.dataset && e.target.dataset.act === "u-img") { S.upload.image = e.target.files && e.target.files[0] || null; render(); return; }
     const el = e.target, j = el.dataset.id ? byId(el.dataset.id) : null; if (!j) return;
     if (el.dataset.act === "stage") await setStatus(j, el.value);
     else if (el.dataset.act === "date") await save(j.id, {[el.dataset.f]: el.value || null}, "Date saved");
@@ -660,7 +779,8 @@ form.add .full{grid-column:1/-1}
   })();
   (async () => {
     sample = await window.claude?.use?.("sample") ?? null;
-    if (sample && S.loaded) schedule();
+    if (sample) { try { const lim = await sample.limits(); S.upload.imagesOk = !!(lim && lim.images); } catch(e) {} }
+    if (S.loaded) schedule();
   })();
 })();
 </script>

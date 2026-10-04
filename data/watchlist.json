@@ -330,26 +330,34 @@
       "slug": null
     },
     {
-      "name": "Kincell Bio",
-      "category": "CDMO / cell & gene therapy",
+      "addedBy": "Claude",
       "ats": "greenhouse",
-      "slug": "kincellbio",
-      "addedBy": "Claude"
+      "category": "CDMO / cell & gene therapy",
+      "name": "Kincell Bio",
+      "slug": "kincellbio"
     },
     {
+      "addedBy": "Claude",
+      "ats": null,
+      "category": "EV / exosome",
       "name": "Rion",
-      "category": "EV / exosome",
-      "ats": null,
-      "slug": null,
-      "addedBy": "Claude"
+      "slug": null
     },
     {
-      "name": "Exokeryx",
-      "category": "EV / exosome",
+      "addedBy": "Claude",
       "ats": null,
-      "slug": null,
-      "addedBy": "Claude"
+      "category": "EV / exosome",
+      "name": "Exokeryx",
+      "slug": null
+    },
+    {
+      "name": "UT MD Anderson Cancer Center",
+      "category": "Houston area",
+      "ats": "custom",
+      "slug": "jobs.mdanderson.org",
+      "addedBy": "Claude",
+      "note": "Site blocked from the environment; searched via web search (site:jobs.mdanderson.org)"
     }
   ],
-  "updatedAt": "2026-09-29"
+  "updatedAt": "2026-10-04"
 }
